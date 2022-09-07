@@ -83,7 +83,7 @@
                 </ul>
             </li>
         @endif
-        <li>
+        {{-- <li>
             <div class="iocn-link">
                 <a href="#">
                     <i class='bx bx-user'></i>
@@ -99,7 +99,7 @@
                 <li><a href="{{ route('about-setting') }}">Jabatan Anggota</a></li>
 
             </ul>
-        </li>
+        </li> --}}
         @if ($checkRole == 'petugas' or $checkRole == 'super admin')
             <li>
                 <div class="iocn-link">
