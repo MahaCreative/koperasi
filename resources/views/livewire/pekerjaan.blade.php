@@ -20,7 +20,7 @@
 
     <div class="border-b border-emerald-400">
         <span><a href="{{ route('dashboard') }}">Dashboard /</a></span>
-        <span><a class="text-emerald-400" href="{{ Request::url() }}">Anggota Koperasi </a></span>
+        <span><a class="text-emerald-400" href="{{ Request::url() }}">Jenis Pekerjaan </a></span>
     </div>
     {{-- BTN TAMBAH --}}
     <div class="border border-gray-400/50 shadow-md shadow-gray-500/50 rounded-md p-3 my-2">
@@ -29,7 +29,7 @@
                 {{-- @can('create anggota koperasi') --}}
                 <button type="submit" data-bs-toggle="modal" data-bs-target="#modalsLarge"
                     class="border border-gray-400/50 shadow rounded-md p-2 hover:cursor-pointer hover:bg-gray-500/50 hover:text-white transition duration-300 ease-in">Tambah
-                    Anggota Koperasi</button>
+                    Jenis Pekerjaan</button>
                 {{-- @endcan --}}
             </div>
         </div>

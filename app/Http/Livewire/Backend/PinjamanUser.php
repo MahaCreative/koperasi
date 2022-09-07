@@ -40,7 +40,7 @@ class PinjamanUser extends Component
 
     // Lihat Pembayaran
     public $lihatpembayaran;
-
+    public $dataCetak = [];
     public function mount()
     {
         $this->checkRole  = auth()->user()->getRoleNames()[0];
@@ -58,7 +58,7 @@ class PinjamanUser extends Component
         $dataPinjaman = DataPinjaman::latest()->get();
         $dataAngsuran = DataAngsuran::latest()->get();
         $detailPinjaman  = DetailDataPinjaman::latest()->get();
-        $pinjamanUsers = [];
+
         if ($this->checkRole == 'super admin') {
             if ($this->search == '') {
                 $pinjamanUsers = ModelsPinjamanUser::with('profile', 'detail_data_pinjaman')->latest()->paginate($this->paginate);
@@ -93,6 +93,7 @@ class PinjamanUser extends Component
                     ->latest()->paginate($this->paginate);
             }
         }
+
         return view('livewire.backend.pinjaman-user', compact('pekerjaan', 'dataPinjaman', 'dataAngsuran', 'pinjamanUsers'));
     }
 
@@ -393,6 +394,12 @@ class PinjamanUser extends Component
         $detail->pinjaman_user->update(['status_lunas' => false]);
         $detail->delete();
         $this->info('menghapus');
+    }
+
+    public function btnPrint($value)
+    {
+        dd($value);
+        return redirect()->route('cetak-pinjaman-anggota')->with(['data' => $this->dataCetak]);
     }
 
     public function info($pesan)

@@ -29,8 +29,14 @@ class Login extends Component
             'email' => 'required|email',
         ]);
         $user = User::whereEmail($this->email)->first();
-        if (Auth::attempt($attr)) {
-            redirect()->route('dashboard');
+        if ($user->getRoleNames()[0] == 'anggota') {
+            if (Auth::attempt($attr)) {
+                redirect()->route('profile-user');
+            }
+        } else {
+            if (Auth::attempt($attr)) {
+                redirect()->route('dashboard');
+            }
         }
 
 

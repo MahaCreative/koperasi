@@ -30,7 +30,7 @@
                 <div><i class='bx bx-menu'></i>
 
                 </div>
-                <div class="bg-gray-400 mx-8">
+                <div class=" mx-8">
                     <a href="{{ route('logout') }}" class="text-emerald-400 hover:text-emerald-500">Logout</a>
                 </div>
             </div>

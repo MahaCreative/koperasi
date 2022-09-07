@@ -2,8 +2,7 @@
 
     {{-- Modals --}}
 
-    @component('components.snippets.modals',
-        ['title' => 'Tambah Jenis Simpanan', 'idModals' => 'modalsLarge', 'sizeModals' => 'modal'])
+    @component('components.snippets.modals', ['title' => 'Filter', 'idModals' => 'modalsLarge', 'sizeModals' => 'modal'])
         @if ($statusViewModal == 'modalFilterPinjaman')
             <form wire:submit.prevent="filterPinjaman">
                 <div class="flex flex-col">
@@ -25,7 +24,25 @@
                 <button type="submit">Proses Filter</button>
             </form>
         @else
-            b
+            <form wire:submit.prevent="filterSimpanan">
+                <div class="flex flex-col">
+                    <label for="">From Date</label>
+                    <input class="w-full border border-gray-400/50 rounded-md px-2 py-1 flex items-center mb-2"
+                        type="date" wire:model='from_date' placeholder="{{ $from_date }}">
+                    @error('from_date')
+                        <p class="text-red-500 italic text-sm">{{ $message }}</p>
+                    @enderror
+                </div>
+                <div class="flex flex-col">
+                    <label for="">From Date</label>
+                    <input class="w-full border border-gray-400/50 rounded-md px-2 py-1 flex items-center mb-2"
+                        type="date" wire:model='to_date' placeholder="to_date">
+                    @error('to_date')
+                        <p class="text-red-500 italic text-sm">{{ $message }}</p>
+                    @enderror
+                </div>
+                <button type="submit">Proses Filter</button>
+            </form>
         @endif
     @endcomponent
     <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-2 mx-2 font-semibold">
@@ -116,7 +133,7 @@
         <div
             class="border lg:text-base text-sm border-gray-400/50 shadow-md shadow-gray-500/50 rounded-md p-3 my-2 mx-2 ">
             <div class="m-2">
-                <button type="button" wire:click="fiewModal('modalFilterSimppanan')" data-bs-toggle="modal"
+                <button type="button" wire:click="fiewModal('modalFilterSimpanan')" data-bs-toggle="modal"
                     data-bs-target="#modalsLarge"
                     class="border border-gray-400 shadow-md hover:cursor-pointer hover:bg-gray-400 hover:text-white rounded-md px-4">Filter
                     Tanggal</button>
@@ -133,6 +150,7 @@
     @push('scripts')
         <script>
             var charData = JSON.parse(`<?php echo $pinjaman; ?>`);
+
             var dataSet = [];
 
             for (let i = 0; i < charData.length; i++) {
@@ -180,21 +198,21 @@
             });
         </script>
         <script>
-            var charData = JSON.parse(`<?php echo $pinjaman; ?>`);
-            var dataSet = [];
+            var charData2 = JSON.parse(`<?php echo $simpanan; ?>`);
+            var dataSet2 = [];
 
-            for (let i = 0; i < charData.length; i++) {
-                dataSet.push({
-                    x: charData[i].tanggal,
-                    y: charData[i].pinjaman
+            for (let i = 0; i < charData2.length; i++) {
+                dataSet2.push({
+                    x: charData2[i].tanggal,
+                    y: charData2[i].simpanan
                 })
             }
             const data2 = {
                 datasets: [{
-                    label: 'Total Pinjaman Anggota',
-                    backgroundColor: 'rgb(255, 99, 132)',
-                    borderColor: 'rgb(255, 99, 132)',
-                    data: dataSet,
+                    label: 'Total simpanan Anggota',
+                    backgroundColor: 'rgb(50, 120, 252)',
+                    borderColor: 'rgb(50, 120, 252)',
+                    data: dataSet2,
                 }]
             };
 
@@ -207,8 +225,24 @@
             };
             const myChart2 = new Chart(
                 document.getElementById('myChart2'),
-                config
+                config2
             );
+
+            window.addEventListener('updateGrafikSimpanan', event => {
+                var charData2 = event.detail.data;
+                var dataSet2 = [];
+
+                for (let i = 0; i < charData2.length; i++) {
+                    dataSet2.push({
+                        x: charData2[i].tanggal,
+                        y: charData2[i].simpanan
+                    })
+                }
+                myChart2.data.datasets.forEach((datasets) => {
+                    datasets.data = dataSet2
+                })
+                myChart2.update()
+            });
         </script>
     @endpush
 </div>

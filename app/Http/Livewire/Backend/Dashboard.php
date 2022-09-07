@@ -14,20 +14,24 @@ use Livewire\Component;
 
 class Dashboard extends Component
 {
-    public $pinjaman;
+    public $pinjaman, $simpanan;
     public $statusViewModal = 'modalFilterPinjaman';
     public $titleModals = 'Filter Pinjaman';
     public $from_date = '';
     public $to_date = '';
+
     public function render()
     {
         $this->pinjaman = $this->query()
             ->whereBetween(DB::raw('DATE(pinjaman_users.created_at)'), array(Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()))
             ->get();
-
+        $this->simpanan = $this->querySimpanan()
+            ->whereBetween(DB::raw('DATE(simpanan_users.created_at)'), array(Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()))
+            ->get();
+        // dd($this->simpanan);
         // dd(Carbon::now()->endOfWeek());
         $data = json_encode($this->pinjaman);
-
+        $data2 = json_encode($this->simpanan);
         $pinjamanCount = PinjamanUser::where('status_pinjaman', true)->count();
         $pinjamanBelumLunas = PinjamanUser::where('status_pinjaman', true)->where('status_lunas', false)->count();
         $pinjamanLunas = PinjamanUser::where('status_pinjaman', true)->where('status_lunas', true)->count();
@@ -69,6 +73,35 @@ class Dashboard extends Component
             )
             ->orderBy('pinjaman_users.created_at')
             ->groupBy(DB::raw("DATE_FORMAT(pinjaman_users.created_at, '%d-%m-%Y')"));
+    }
+
+    public function querySimpanan()
+    {
+        return DB::table('simpanan_users')->join('jenis_simpanans', 'jenis_simpanans.id', '=', 'simpanan_users.jenis_simpanan_id')
+            ->select(
+                DB::raw("DATE_FORMAT(simpanan_users.created_at, '%d-%m-%Y') as tanggal"),
+                DB::raw('sum(jenis_simpanans.jumlah) as simpanan')
+            )
+            ->orderBy('simpanan_users.created_at')
+            ->groupBy(DB::raw("DATE_FORMAT(simpanan_users.created_at, '%d-%m-%Y')"));
+    }
+
+    public function filterSimpanan()
+    {
+        if ($this->from_date == '' and $this->to_date == '') {
+            $this->simpanan = $this->querySimpanan()
+                ->whereBetween(DB::raw('DATE(simpanan_users.created_at)'), array(Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()))
+                ->get();
+        } else if ($this->from_date !== '' and $this->to_date == '') {
+            $this->simpanan = $this->querySimpanan()
+                ->whereBetween(DB::raw('DATE(simpanan_users.created_at)'), array($this->from_date, Carbon::now()->endOfMonth()))
+                ->get();
+        } else if ($this->from_date !== '' and $this->to_date !== '') {
+            $this->simpanan = $this->querySimpanan()
+                ->whereBetween(DB::raw('DATE(simpanan_users.created_at)'), array($this->from_date, $this->to_date))
+                ->get();
+        }
+        $this->dispatchBrowserEvent('updateGrafikSimpanan', ['data' => $this->simpanan]);
     }
 
     public function filterPinjaman()

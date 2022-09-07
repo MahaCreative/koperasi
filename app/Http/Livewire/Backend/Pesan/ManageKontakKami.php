@@ -14,6 +14,15 @@ class ManageKontakKami extends Component
     public $status_baca = [];
     public $selectId;
     public $showPesan;
+
+    public $checkRole;
+    public function mount()
+    {
+        $this->checkRole  = auth()->user()->getRoleNames()[0];
+        if ($this->checkRole == 'anggota') {
+            abort(404);
+        }
+    }
     public function render()
     {
 

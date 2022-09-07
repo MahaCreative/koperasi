@@ -19,6 +19,15 @@ class Create extends Component
         'kontent' => 'required',
         'thumbnail' => 'required|image'
     ];
+
+    public $checkRole;
+    public function mount()
+    {
+        $this->checkRole  = auth()->user()->getRoleNames()[0];
+        if ($this->checkRole == 'anggota') {
+            abort(404);
+        }
+    }
     public function render()
     {
         $this->kategori = Kategori::latest()->get();

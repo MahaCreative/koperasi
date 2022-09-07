@@ -50,7 +50,7 @@ class Simpanan extends Component
         } else if ($this->checkRole == 'petugas') {
             $simpananUser = SimpananUser::where('petugas_id', auth()->user()->id)->latest()->get();
         } else if ($this->checkRole == 'anggota') {
-            $simpananUser = SimpananUser::where('profile_user_id', auth()->user()->id)->latest()->get();
+            $simpananUser = SimpananUser::where('profile_user_id', auth()->user()->profile->id)->latest()->get();
         }
 
         return view('livewire.backend.simpanan', compact('jenisSimpanan', 'simpananUser'))->layout('layouts.app');

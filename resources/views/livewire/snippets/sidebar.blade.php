@@ -127,8 +127,11 @@
             </div>
             <ul class="sub-menu">
                 <li><a class="link_name" href="#">Pesan</a></li>
-                <li><a href="{{ route('manage-komentar') }}">Komentar</a></li>
-                <li><a href="{{ route('manage-kontak-kami') }}">Kontak Kami</a></li>
+                @if (auth()->user()->hasRole('petugas') or
+                    auth()->user()->hasRole('super admin'))
+                    <li><a href="{{ route('manage-komentar') }}">Komentar</a></li>
+                    <li><a href="{{ route('manage-kontak-kami') }}">Kontak Kami</a></li>
+                @endif
                 <li><a href="{{ route('manage-testimoni') }}">Testimoni</a></li>
 
             </ul>

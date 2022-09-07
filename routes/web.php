@@ -61,62 +61,58 @@ Route::get('artikel/{slug}', View::class)->name('artikel-view');
 Route::get('artikel/search/{cari}', Search::class)->name('artikel-search');
 Route::get('artikel/kategori/{cari}', ViewKategori::class)->name('kategori-view');
 Route::get('kontak-kami', ContakKami::class)->name('kontak-kami');
-
-
 Route::get('login', Login::class)->name('login');
 Route::get('register', Register::class)->name('register');
 
-Route::get('profile-user', ProfileUser::class)->name('profile-user');
+Route::middleware('auth')->group(function () {
+
+    Route::get('logout', function () {
+
+        Auth::logout();
+        return redirect()->route('login');
+    })->name('logout');
 
 
+    Route::get('profile-user', ProfileUser::class)->name('profile-user');
+    Route::get('dashboard', Dashboard::class)->name('dashboard');
+    Route::get('profile-koperasi', ProfileKoperasi::class)->name('profile-koperasi');
+
+    // Master Data
+    Route::get('data-pinjaman', DataPinjamanAngsuran::class)->name('data-pinjaman');
+    Route::get('jenis-simpanan', JenisSimpanan::class)->name('jenis-simpanan');
+    Route::get('anggota-koperasi', AnggotaKoperasi::class)->name('anggota-koperasi');
 
 
-Route::get('dashboard', Dashboard::class)->name('dashboard');
-Route::get('profile-koperasi', ProfileKoperasi::class)->name('profile-koperasi');
+    Route::get('pinjaman-anggota', PinjamanUser::class)->name('pinjaman-anggota');
+    Route::get('cetak-pinjaman-anggota', PinjamanAnggota::class)->name('cetak-pinjaman-anggota');
 
 
-Route::get('logout', function () {
+    Route::get('simpanan-anggota', Simpanan::class)->name('simpanan-anggota');
 
-    Auth::logout();
-    return redirect()->route('login');
-})->name('logout');
+    Route::get('petugas', Petugas::class)->name('petugas');
 
-// Master Data
-Route::get('data-pinjaman', DataPinjamanAngsuran::class)->name('data-pinjaman');
-Route::get('jenis-simpanan', JenisSimpanan::class)->name('jenis-simpanan');
-Route::get('anggota-koperasi', AnggotaKoperasi::class)->name('anggota-koperasi');
-Route::get('pinjaman-anggota', PinjamanUser::class)->name('pinjaman-anggota');
-Route::get('simpanan-anggota', Simpanan::class)->name('simpanan-anggota');
-Route::get('petugas', Petugas::class)->name('petugas');
-// Setting
-Route::get('home-setting', HomeSetting::class)->name('home-setting');
-Route::get('about-setting', AboutSetting::class)->name('about-setting');
-Route::get('galery-setting', GalerySetting::class)->name('galery-setting');
-Route::get('iklan-setting', IklanSetting::class)->name('iklan-setting');
+    // Setting
+    Route::get('home-setting', HomeSetting::class)->name('home-setting');
+    Route::get('about-setting', AboutSetting::class)->name('about-setting');
+    Route::get('galery-setting', GalerySetting::class)->name('galery-setting');
+    Route::get('iklan-setting', IklanSetting::class)->name('iklan-setting');
 
+    Route::get('admin-artikel', Index::class)->name('admin-artikel');
+    Route::get('admin-create-artikel', Create::class)->name('create-artikel');
+    Route::get('admin-edit-artikel/{artikel}', Edit::class)->name('artikel-edit');
+    Route::get('admin-kategori', Kategori::class)->name('admin-kategori');
 
+    Route::get('manage-komentar', ManageKomentar::class)->name('manage-komentar');
+    Route::get('manage-kontak-kami', ManageKontakKami::class)->name('manage-kontak-kami');
+    Route::get('manage-testimoni', ManageTestimoni::class)->name('manage-testimoni');
 
+    Route::get('pekerjaan', Pekerjaan::class)->name('pekerjaan');
+    Route::get('jabatan', Jabatan::class)->name('jabatan');
 
-
-Route::get('admin-artikel', Index::class)->name('admin-artikel');
-Route::get('admin-create-artikel', Create::class)->name('create-artikel');
-Route::get('admin-edit-artikel/{artikel}', Edit::class)->name('artikel-edit');
-Route::get('admin-kategori', Kategori::class)->name('admin-kategori');
+    Route::get('histori-penarikan-simpanan', PenarikanSimpanan::class)->name('histori-penarikan-simpanan');
+    Route::get('cetak-histori-penarikan-simpanan', [CetakHistoryPenarikan::class, 'index'])->name('cetak-histori-penarikan-simpanan');
 
 
-
-Route::get('manage-komentar', ManageKomentar::class)->name('manage-komentar');
-Route::get('manage-kontak-kami', ManageKontakKami::class)->name('manage-kontak-kami');
-Route::get('manage-testimoni', ManageTestimoni::class)->name('manage-testimoni');
-
-Route::get('pekerjaan', Pekerjaan::class)->name('pekerjaan');
-Route::get('jabatan', Jabatan::class)->name('jabatan');
-
-Route::get('histori-penarikan-simpanan', PenarikanSimpanan::class)->name('histori-penarikan-simpanan');
-Route::get('cetak-histori-penarikan-simpanan', [CetakHistoryPenarikan::class, 'index'])->name('cetak-histori-penarikan-simpanan');
-
-
-Route::get('histori-pembayaran-pinjaman', PembayaranPinjaman::class)->name('histori-pembayaran-pinjaman');
-Route::get('cetak-histori-pembayaran-pinjaman', [CetakHistoryPenarikan::class, 'hitoriPembayaran'])->name('cetak-histori-pembayaran-pinjaman');
-
-Route::get('cetak-pinjaman-anggota', PinjamanAnggota::class)->name('cetak-pinjaman-anggota');
+    Route::get('histori-pembayaran-pinjaman', PembayaranPinjaman::class)->name('histori-pembayaran-pinjaman');
+    Route::get('cetak-histori-pembayaran-pinjaman', [CetakHistoryPenarikan::class, 'hitoriPembayaran'])->name('cetak-histori-pembayaran-pinjaman');
+});

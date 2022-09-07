@@ -42,16 +42,19 @@
                 <tbody>
                     @forelse ($testimoni as $no => $item)
                         @if ($item->user_id == auth()->user()->id or
-                            auth()->user()->hasRole('kepala koperasi'))
+                            auth()->user()->hasRole('petugas') or
+                            auth()->user()->hasRole('super admin'))
                             <tr>
                                 <td>{{ $no + 1 }}</td>
                                 <td>{{ $item->testimoni }}</td>
                                 <td>
                                     <div class="flex flex-col flex-wrap">
-                                        @can('petugas koperasi')
+                                        @if (auth()->user()->hasRole('petugas') or
+                                            auth()->user()->hasRole('super admin'))
                                             <select name="" id="" class="text-primary"
                                                 wire:change="changeSelect($event.target.value, {{ $item->id }})">
-                                                <option class="text-primary placeholder:text-primary selection:text-primary"
+                                                <option
+                                                    class="text-primary placeholder:text-primary selection:text-primary"
                                                     value="{{ $item->status }}" selected>
                                                     {{ $item->status ? 'Aktif' : 'Tidak Aktif' }}</option>
                                                 <option value="1"
@@ -65,7 +68,7 @@
                                             <p class="italic {{ $item->status ? 'text-primary' : 'text-red-500' }}">
                                                 {{ $item->status ? 'Aktif' : 'Tidak Aktif' }}
                                             </p>
-                                        @endcan
+                                        @endif
                                     </div>
                                 </td>
                                 <td>{{ $item->updated_at->diffForHumans() }}</td>

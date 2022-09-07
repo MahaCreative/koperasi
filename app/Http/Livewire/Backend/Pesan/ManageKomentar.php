@@ -9,6 +9,17 @@ class ManageKomentar extends Component
 {
     public $komentar, $select;
     public $cari = '';
+
+    public $checkRole;
+    public function mount()
+    {
+        $this->checkRole  = auth()->user()->getRoleNames()[0];
+        if ($this->checkRole == 'anggota') {
+            abort(404);
+        }
+    }
+
+
     public function render()
     {
         if ($this->cari === '') {

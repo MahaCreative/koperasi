@@ -431,9 +431,7 @@
                         class="border border-gray-400/50 shadow rounded-md p-2 hover:cursor-pointer hover:bg-gray-500/50 hover:text-white transition duration-300 ease-in">Tambah
                         Pinjaman</button>
                 @endcan
-                <button type="submit" data-bs-toggle="modal" data-bs-target="#modalsLarge"
-                    class="border border-gray-400/50 shadow rounded-md p-2 hover:cursor-pointer hover:bg-gray-500/50 hover:text-white transition duration-300 ease-in">
-                    Export PDF</button>
+
                 <div>
                     <Label>Filter</Label>
                     <select
@@ -451,9 +449,6 @@
             <div class="flex gap-x-2  items-center justify-end">
                 <input wire:model='search' type="text" placeholder="Search..."
                     class="border border-gray-400/50 rounded-md px-2 py-1 mb-2">
-                <a href="{{ route('cetak-pinjaman-anggota') }}"
-                    class="border border-gray-400/50 shadow   rounded-md p-2 hover:cursor-pointer hover:bg-gray-500/50 hover:text-white transition duration-300 ease-in">
-                    Print</a>
             </div>
 
         </div>

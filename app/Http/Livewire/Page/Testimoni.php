@@ -10,6 +10,7 @@ class Testimoni extends Component
     public function render()
     {
         $testimoni = ModelsTestimoni::with('user')->latest()->get();
+        // dd($testimoni);
         return view('livewire.page.testimoni', compact('testimoni'));
     }
 }

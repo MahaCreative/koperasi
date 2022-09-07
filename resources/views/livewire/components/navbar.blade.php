@@ -78,9 +78,9 @@
                                                         href="#">Profile</a>
                                                 </li>
                                                 <li>
-                                                    <a wire:click="logout"
-                                                        class="dropdown-item text-sm py-2 px-4 pr-5 font-normal block w-full whitespace-nowrap bg-transparent text-gray-300 hover:bg-red-700 hover:text-white focus:text-white focus:bg-gray-700 active:bg-blue-600">Log
-                                                        log out</a>
+                                                    <a href="{{ route('logout') }}"
+                                                        class="dropdown-item text-sm py-2 px-4 pr-5 font-normal block w-full whitespace-nowrap bg-transparent text-gray-300 hover:bg-red-700 hover:text-white focus:text-white focus:bg-gray-700 active:bg-blue-600">
+                                                        Log out</a>
                                                 </li>
 
                                             </ul>

@@ -19,8 +19,15 @@ class Edit extends Component
         'kontent' => 'required',
         'thumbnail' => 'required|image'
     ];
+
+    public $checkRole;
+
     public function mount(Artikel $artikel)
     {
+        $this->checkRole  = auth()->user()->getRoleNames()[0];
+        if ($this->checkRole == 'anggota') {
+            abort(404);
+        }
         $this->artikel = $artikel->with('kategori')->first();
 
         $this->judul = $this->artikel->judul;

@@ -1,9 +1,5 @@
 <div>
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/assets/owl.carousel.min.css">
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/assets/owl.theme.default.min.css">
     <section id="testimonial_area" class=" bg-primary">
         <div class="flex justify-center py-3 text-xl font-extrabold text-white">
             Testimoni
