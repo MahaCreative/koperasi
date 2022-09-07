@@ -67,7 +67,7 @@ class ProfileKoperasi extends Component
         $this->validate();
         $this->profileKoperasi = ModelsProfileKoperasi::first();
 
-        $logoUrl = $this->logo ? $this->logo->store('Images/ProfileKoperasi/') : $this->logoUrl;
+        $logoUrl = $this->logo ? $this->logo->store('Images/ProfileKoperasi') : $this->logoUrl;
         $this->profileKoperasi->update([
             'alamat' => $this->alamat,
             'nama_koperasi' => $this->nama_koperasi,

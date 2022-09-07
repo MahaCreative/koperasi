@@ -24,6 +24,7 @@ use App\Http\Livewire\Backend\PinjamanUser;
 use App\Http\Livewire\Backend\ProfileKoperasi;
 use App\Http\Livewire\Backend\ProfileUser;
 use App\Http\Livewire\Backend\Simpanan;
+use App\Http\Livewire\Cetak\PinjamanAnggota;
 use App\Http\Livewire\Kategori;
 use App\Http\Livewire\Login;
 use App\Http\Livewire\Page\About;
@@ -117,3 +118,5 @@ Route::get('cetak-histori-penarikan-simpanan', [CetakHistoryPenarikan::class, 'i
 
 Route::get('histori-pembayaran-pinjaman', PembayaranPinjaman::class)->name('histori-pembayaran-pinjaman');
 Route::get('cetak-histori-pembayaran-pinjaman', [CetakHistoryPenarikan::class, 'hitoriPembayaran'])->name('cetak-histori-pembayaran-pinjaman');
+
+Route::get('cetak-pinjaman-anggota', PinjamanAnggota::class)->name('cetak-pinjaman-anggota');

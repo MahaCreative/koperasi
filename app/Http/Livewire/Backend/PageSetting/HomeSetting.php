@@ -59,7 +59,7 @@ class HomeSetting extends Component
             'logo' => 'required',
         ]);
 
-        $logoUrl = $this->logo->store('images/logo');
+        $logoUrl = $this->logo->store('public/images/logo');
 
 
         $heroes = ModelsHeroes::first();
@@ -124,7 +124,7 @@ class HomeSetting extends Component
 
     public function submitKeunggulanHandler()
     {
-        $logoUrl = $this->keunggulanLogo->storeAs('images/keunggulan', $this->keunggulanLogo->getClientOriginalName());
+        $logoUrl = $this->keunggulanLogo->store('public/images/keunggulan');
         $this->validate([
             'keunggulanJudul' => 'required',
             'keunggulanKontent' => 'required',
@@ -153,7 +153,7 @@ class HomeSetting extends Component
     public function updateKeunggulanHandler()
     {
         // dd($this->keunggulanLogo);
-        $logoUrl = $this->keunggulanLogo->storeAs('images/keunggulan', $this->keunggulanLogo->getClientOriginalName());
+        $logoUrl = $this->keunggulanLogo->store('public/images/keunggulan');
         $keunggulan = Keunggulan::findOrfail($this->getIdKeunggulan);
         $keunggulan->update([
             'judul' => $this->keunggulanJudul,

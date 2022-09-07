@@ -1,5 +1,4 @@
 <div>
-
     @livewire('components.heroes')
     @livewire('components.pinjaman')
     <div class="col-span-4 md:col-span-3">
@@ -39,8 +38,8 @@
                     @else
                     {{ 'hidden' }} @endif tab-links">
                         <div class="flex justify-center items-center lg:text[34pt] text-primary2 font-bold mb-2">
-                            Syarat
-                            Pengajuan Pinjaman</div>
+                            <img src="{{ asset('image/apply-loan-terms-_1_.png') }}" alt="">
+                        </div>
                         <div class=" flex flex-wrap justify-between px-10 w-full duration-300 transition">
                             <div class="hidden lg:w-1/2 lg:flex items-center justify-center">
                                 <img src="dist/gambar/Wavy_Bus-14_Single-02.jpg" width="300px" alt="">
@@ -99,7 +98,8 @@
 
                             </div>
                             <div class="flex justify-end">
-                                <img class="md:w-20 lg:w-40" src="{{ asset('gambar/Untitled-1.png') }}" alt="">
+                                <img class="md:w-20 lg:w-40" src="{{ asset('image/apply-loan-steps.png') }}"
+                                    alt="">
                             </div>
                         </div>
                     </div>
