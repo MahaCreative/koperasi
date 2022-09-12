@@ -1,4 +1,7 @@
 <div class="overflow-hidden">
+    @section('title')
+        History Penarikan Simpanan
+    @endsection
     @component('components.snippets.modals',
         ['title' => $titleModals, 'idModals' => 'modalsLarge', 'sizeModals' => 'modal-default'])
         @if ($showModal == 'filter')

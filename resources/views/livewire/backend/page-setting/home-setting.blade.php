@@ -1,5 +1,7 @@
 <div>
-
+    @section('title')
+        Home Setting
+    @endsection
     <div class="grid grid-cols-4 p-3 gap-x-2 ">
         <div wire:click="selectHeroes"
             class="col-span-4 md:col-span-3 shadow-sm border py-2 hover:border hover:cursor-pointer">

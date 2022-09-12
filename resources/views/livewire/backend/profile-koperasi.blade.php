@@ -1,5 +1,7 @@
 <div class="flex flex-col gap-y-3">
-
+    @section('title')
+        Profile Koperasi
+    @endsection
     <div class="border-b border-emerald-400">
         <span><a href="{{ route('dashboard') }}">Dashboard /</a></span>
         <span><a class="text-emerald-400" href="{{ Request::url() }}">Profile Koperasi </a></span>

@@ -1,4 +1,9 @@
+@section('title')
+    Galery
+@endsection
 <div class="py-16">
+
+
     <div id="carouselExampleCaptions" class="carousel slide relative" data-bs-ride="carousel">
         <div class="carousel-indicators absolute right-0 bottom-0 left-0 flex justify-center p-0 mb-4">
             <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
@@ -41,7 +46,8 @@
 
         <div class="container px-5 py-2 mx-auto lg:pt-24 lg:px-32">
             <div class="flex justify-center my-3">
-                <h3 class="text-3xl text-primary border-b-4 border-spacing-3 border-primary">Galery Koperasi Berkah</h3>
+                <h3 class="text-3xl text-primary border-b-4 border-spacing-3 border-primary">Galery Koperasi Berkah
+                </h3>
             </div>
             <div class="flex flex-wrap -m-1 md:-m-2 my-3">
                 <div class="flex flex-wrap w-full">

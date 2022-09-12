@@ -1,4 +1,7 @@
 <div class="w-full  min-h-screen flex justify-center items-center bg-emerald-400">
+    @section('title')
+        Register
+    @endsection
     <div class="shadow-md shadow-gray-500/50 border rounded-md w-96 p-2 bg-white">
         <div class="flex flex-col justify-center items-center">
             <h3 class="font-semibold text-xl text-emerald-400">

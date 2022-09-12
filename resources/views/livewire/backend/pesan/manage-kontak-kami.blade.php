@@ -1,5 +1,7 @@
 <div class="pt-6 px-3 lg:px-6 w-full ">
-
+    @section('title')
+        Manage Kontak Kami
+    @endsection
     <div class="border-emerald-400 border-b w-full  ">
         <h3 class="text-2xl font-bold text-primary2">Manage Kontak Kami</h3>
     </div>

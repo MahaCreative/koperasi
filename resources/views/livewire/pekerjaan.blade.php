@@ -1,4 +1,7 @@
 <div class="overflow-hidden">
+    @section('title')
+        Pekerjaan
+    @endsection
     @component('components.snippets.modals',
         ['title' => 'Tambah Anggota Koperasi', 'idModals' => 'modalsLarge', 'sizeModals' => 'modal-default'])
         {{-- @can('create anggota koperasi') --}}

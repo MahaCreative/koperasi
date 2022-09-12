@@ -16,7 +16,6 @@ class PekerjaanSeeder extends Seeder
     {
         DB::table('pekerjaans')->insert([
             ['pekerjaan' => 'Petani'],
-            ['pekerjaan' => 'Pencuri'],
             ['pekerjaan' => 'Pegawai']
         ]);
     }

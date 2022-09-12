@@ -1,4 +1,7 @@
 <div class="overflow-hidden">
+    @section('title')
+        Pinjaman Anggota
+    @endsection
     @component('components.snippets.modals',
         ['title' => $titleModal, 'idModals' => 'modalsLarge', 'sizeModals' => 'modal-xl'])
 

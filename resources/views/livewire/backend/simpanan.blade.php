@@ -1,4 +1,7 @@
 <div>
+    @section('title')
+        Simpanan User
+    @endsection
     @component('components.snippets.modals',
         ['title' => 'Tambah Simpanan', 'idModals' => 'modalsLarge', 'sizeModals' => $sizeModals])
         @if ($activity == 'Buat simpanan')

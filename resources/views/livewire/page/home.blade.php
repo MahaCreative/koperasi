@@ -1,4 +1,7 @@
 <div>
+    @section('title')
+        Home
+    @endsection
     @livewire('components.heroes')
     @livewire('components.pinjaman')
     <div class="col-span-4 md:col-span-3">

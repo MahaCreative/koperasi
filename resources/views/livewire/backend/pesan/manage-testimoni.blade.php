@@ -1,4 +1,7 @@
 <div class="py-3 px-3">
+    @section('title')
+        Manage Testimoni
+    @endsection
     <div class="flex justify-between my-2 border-b py-2 border-emerald-400">
         <h3 class="text-lg text-primary">Testimoni</h3>
         <button wire:click="$toggle('statusForm')" class="py-1 px-3 rounded-lg shadow bg-primary">Tambahkan

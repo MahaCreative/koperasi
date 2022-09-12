@@ -1,4 +1,7 @@
 <div class="overflow-hidden">
+    @section('title')
+        Petugas
+    @endsection
     @component('components.snippets.modals',
         ['title' => 'Tambah Anggota Koperasi', 'idModals' => 'modalsLarge', 'sizeModals' => 'modal-xl'])
         <form wire:submit.prevent="{{ $statusEdit ? 'updateHandler' : 'submitHandler' }}">

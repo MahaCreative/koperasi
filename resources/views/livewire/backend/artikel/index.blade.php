@@ -1,4 +1,7 @@
 <div>
+    @section('title')
+        Admin Artikel
+    @endsection
     <div class="border-b border-emerald-400">
         <span><a href="{{ route('dashboard') }}">Dashboard /</a></span>
         <span><a class="text-emerald-400" href="{{ Request::url() }}">Artikel </a></span>

@@ -1,5 +1,7 @@
 <div wire:ignore>
-
+    @section('title')
+        Edit Artikel
+    @endsection
     <div class="w-full">
         <form class="w-full" action="" enctype="multipart/form-data" wire:submit.prevent="submitHandler()">
             @csrf

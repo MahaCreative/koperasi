@@ -1,4 +1,5 @@
 <div class="mt-16  px-14">
+
     <div class="grid grid-cols-4  border my-5">
         <div class="col-span-4 lg:col-span-3 p-3 gap-y-2">
             {{-- @livewire('populerpost') --}}

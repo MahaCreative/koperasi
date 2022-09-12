@@ -1,4 +1,7 @@
 <div class="overflow-hidden">
+    @section('title')
+        Anggota Koperasi
+    @endsection
     @component('components.snippets.modals',
         ['title' => 'Tambah Anggota Koperasi', 'idModals' => 'modalsLarge', 'sizeModals' => 'modal-xl'])
         @if ($viewModals === 'tambah-anggota')

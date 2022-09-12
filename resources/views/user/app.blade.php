@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{{ asset('css/tailwind.css') }}">
     <script src="{{ asset('js/tailwind.js') }}"></script>
 
-    <title>Document</title>
+    <title>@yield('title')</title>
     @livewireStyles
 </head>
 

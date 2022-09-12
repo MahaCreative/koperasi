@@ -1,5 +1,7 @@
 <div>
-
+    @section('title')
+        Data-Pinjaman
+    @endsection
     <div class="border-b border-emerald-400">
         <span><a href="{{ route('dashboard') }}">Dashboard /</a></span>
         <span><a class="text-emerald-400" href="{{ Request::url() }}">Data Pinjaman </a></span>

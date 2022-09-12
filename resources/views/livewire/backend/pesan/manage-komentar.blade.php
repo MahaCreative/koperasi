@@ -1,4 +1,7 @@
 <div class="my-2 px-4 py-2">
+    @section('title')
+        Manage Komentar
+    @endsection
     <div class="flex justify-between">
         <h3 class="text-lg text-primary2 border-b border-emerald-300">Manage Komentar</h3>
         <input class="py-1 px-3 border border-emerald-400 rounded-lg placeholder:text-emerald-400" type="text"

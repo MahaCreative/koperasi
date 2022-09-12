@@ -1,5 +1,7 @@
 <div>
-
+    @section('title')
+        Dashboard
+    @endsection
     {{-- Modals --}}
 
     @component('components.snippets.modals', ['title' => 'Filter', 'idModals' => 'modalsLarge', 'sizeModals' => 'modal'])

@@ -1,4 +1,7 @@
 <div class="lg:grid lg:grid-cols-5 px-4 gap-x-3">
+    @section('title')
+        Iklan Setting
+    @endsection
     <div class="w-full lg:col-span-4 py-3">
         <div>
             <h3 class="text-lg text-primary2 font-bold">Iklan</h3>

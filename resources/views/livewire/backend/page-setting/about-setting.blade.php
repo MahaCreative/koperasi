@@ -1,5 +1,7 @@
 <div class="lg:grid lg:grid-cols-5 px-4" wire:ignore>
-
+    @section('title')
+        About Setting
+    @endsection
     <div class="w-full lg:col-span-3 py-3">
         <div id="editor"></div>
         <button wire:click="submitHandler"

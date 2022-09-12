@@ -1,4 +1,8 @@
 <div class="py-16 px-14 capitalize">
+    @section('title')
+        Kontak Kami
+    @endsection
+
     <div class="grid grid-cols-5 px-4 my-5 gap-x-9 py-3 border border-emerald-400 rounded-lg">
         <div class="col-span-5 lg:col-span-3 ">
             <p class="text-3xl font-light text-primary">Hubungi Kami</p>

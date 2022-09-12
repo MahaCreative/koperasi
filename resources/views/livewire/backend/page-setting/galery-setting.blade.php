@@ -1,5 +1,7 @@
 <div class="lg:grid lg:grid-cols-5 px-4 gap-x-3">
-
+    @section('title')
+        Galery Setting
+    @endsection
     <div class="w-full lg:col-span-3 py-3">
         <h3 class="text-lg text-primary font-bold">Galery</h3>
         <section class="overflow-hidden text-gray-700 border border-gray-500/50 shadow-sm rounded-lg py-2">
