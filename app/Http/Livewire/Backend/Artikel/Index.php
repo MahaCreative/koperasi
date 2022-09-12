@@ -19,8 +19,9 @@ class Index extends Component
     }
     public function render()
     {
-        $this->checkRole  = auth()->user()->getRoleNames()[0];
-        if ($this->checkRole == 'pettugas') {
+
+
+        if ($this->checkRole == 'petugas') {
             $this->getArtikel = Artikel::with('user')
                 ->where('user_id', auth()->user()->id)
                 ->latest()->get();

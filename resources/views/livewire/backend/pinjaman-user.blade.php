@@ -314,6 +314,12 @@
         @if ($statusView === 'lihat pembayaran pinjaman')
             <div class="border lg:text-base text-sm border-gray-400/50 shadow-md shadow-gray-500/50 rounded-md p-3 my-2">
                 {{-- Table --}}
+                <div class="flex gap-x-2  items-center justify-end">
+
+                    <button type="button" wire:click="printPembayaran()"
+                        class="border border-gray-400/50 shadow   rounded-md p-2 hover:cursor-pointer hover:bg-gray-500/50 hover:text-white transition duration-300 ease-in">
+                        Print</button>
+                </div>
                 <div class="border-b border-gray-600/50 py-3 w-full">
                     <p>Nama Pinjaman :<span
                             class="font-bold text-right">{{ $lihatpembayaran->profile->nama_lengkap }}</span></p>
@@ -437,11 +443,11 @@
                     <select
                         class="border border-gray-400/50 shadow rounded-md p-2 hover:cursor-pointer hover:bg-gray-500/50 hover:text-white transition duration-300 ease-in"
                         name="" id="" wire:model='paginate'>
-                        <option value="1">10</option>
-                        <option value="2">20</option>
+                        <option value="10">10</option>
+                        <option value="20">20</option>
                         <option value="50">50</option>
                         <option value="100">100</option>
-                        <option value="all">Lihat Semua</option>
+                        <option value="">Lihat Semua</option>
                     </select>
                 </div>
 
@@ -449,6 +455,9 @@
             <div class="flex gap-x-2  items-center justify-end">
                 <input wire:model='search' type="text" placeholder="Search..."
                     class="border border-gray-400/50 rounded-md px-2 py-1 mb-2">
+                <button type="submit" wire:click="print({{ $data }})"
+                    class="border border-gray-400/50 shadow   rounded-md p-2 hover:cursor-pointer hover:bg-gray-500/50 hover:text-white transition duration-300 ease-in">
+                    Print</button>
             </div>
 
         </div>
@@ -531,9 +540,13 @@
                                                     <option value=0>Belum Di Setujui</option>
                                                     <option value=1>Di Setujui</option>
                                                 </select>
+                                            @else
+                                                <p>Status Pinjaman :
+                                                    {{ $item->status_pinjaman ? 'Di setujui' : 'Belum di setujui' }}</p>
                                             @endcan
                                             @can('lunasi pinjaman user')
                                                 <select
+                                                    wire:change="changeStatusLunasPinjaman($event.target.value, {{ $item->id }})"
                                                     class="rounded-md border border-gray-400/50 p-1 {{ $item->status_lunas ? 'bg-green-600 text-white' : 'bg-red-500 text-white' }}"
                                                     class="mx-2" name="" id="">
                                                     <option value="{{ $item->status_lunas }}" selected disabled>
@@ -541,6 +554,8 @@
                                                     <option value=0>Belum Lunas</option>
                                                     <option value=1>Lunas</option>
                                                 </select>
+                                            @else
+                                                <p>Status Lunas: {{ $item->status_lunas ? 'Lunas' : 'Belum Lunas' }}</p>
                                             @endcan
                                         </td>
                                         <td>{{ $item->tanggal_pengajuan }}</td>

@@ -32,39 +32,38 @@
         </thead>
         <tbody>
             @if ($histori !== null)
-                @forelse ($histori as $no => $item)
+                @for ($i = 0; $i < count($histori) - 1; $i++)
                     <tr class="border-b border-gray-400/50">
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                            {{ $no + 1 }}
+                            {{ $i + 1 }}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                            {{ $item->pembayaran_user->pinjaman_user->profile->nama_lengkap }}
+                            {{ $histori[$i]['nama_lengkap'] }}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                            {{ $item->pembayaran_user->pinjaman_user->kode_pinjaman }}
+                            {{ $histori[$i]['kode_pinjaman'] }}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
 
                             Rp.
-                            {{ format_uang($item->pembayaran_user->pinjaman_user->detail_data_pinjaman->data_pinjaman->pinjaman) }}
+                            {{ format_uang($histori[$i]['pinjaman']) }}
 
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                            {{ $item->created_at->format('d-m-y') }}
+                            {{ $histori[$i]['created_at'] }}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                            Rp. {{ format_uang($item->pembayaran) }}
+                            Rp. {{ format_uang($histori[$i]['pembayaran']) }}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                            Rp. {{ format_uang($item->sisa_pinjaman) }}
+                            Rp. {{ format_uang($histori[$i]['sisa_pinjaman']) }}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                            {{ $item->user->username }}
+                            {{ $histori[$i]['username'] }}
                         </td>
 
                     </tr>
-                @empty
-                @endforelse
+                @endfor
             @endif
 
         </tbody>

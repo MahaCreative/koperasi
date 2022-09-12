@@ -15,12 +15,10 @@ class CreateSimpananUsersTable extends Migration
     {
         Schema::create('simpanan_users', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('jenis_simpanan_id')->nullable();
             $table->foreignId('pinjaman_user_id')->nullable();
             $table->foreignId('profile_user_id');
             $table->foreignId('petugas_id');
             $table->string('kode_simpanan');
-            $table->integer('jumlah_simpanan')->nullable();
             $table->boolean('status_simpanan')->default(false);
             $table->string('keterangan')->default('belum ditarik');
             $table->date('tanggal_simpanan');

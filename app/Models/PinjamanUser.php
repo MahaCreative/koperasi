@@ -25,4 +25,9 @@ class PinjamanUser extends Model
     {
         return $this->hasOne(PembayaranUser::class);
     }
+
+    public function simpanan_user()
+    {
+        return $this->hasOne(SimpananUser::class);
+    }
 }

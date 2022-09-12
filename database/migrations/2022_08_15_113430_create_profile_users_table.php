@@ -17,7 +17,7 @@ class CreateProfileUsersTable extends Migration
             $table->id();
             $table->foreignId('user_id')->nullable();
             $table->string('nik', 16)->unique();
-            $table->string('no_kk', 16)->unique();
+            $table->string('no_kk', 16)->unique()->nullable();
             $table->string('nama_lengkap');
             $table->string('tempat_lahir');
             $table->date('ttl');

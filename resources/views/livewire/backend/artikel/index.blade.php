@@ -86,65 +86,68 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($getArtikel as $no => $item)
-                                    <tr class="border-b border-gray-400/50">
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                            {{ $no + 1 }}
-                                        </td>
-                                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                            {{ $item->judul }}</a>
-                                        </td>
-                                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                            <div class="flex flex-col gap-y-1">
-                                                <span
-                                                    class="border-b border-gray-400/50 bg-green-500 inline rounded-md px-2 text-white text-sm">
-                                                    {{ $item->user->username }}</span>
-                                            </div>
-                                        </td>
-
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                            {{ $item->kategori->judul }}
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                            {{ $item->visitor }}
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                            {{ $item->created_at->diffForhumans() }}
-                                        </td>
-
-
-                                        @hasrole('super admin')
-                                            <td>
-                                                <select wire:change="changeStatus($event.target.value, {{ $item->id }})"
-                                                    name="" id=""
-                                                    class="{{ $item->active ? 'bg-green-500' : 'bg-red-500' }}">
-                                                    <option value="" selected>
-                                                        {{ $item->active ? 'Aktif' : 'Belum Aktif' }}
-                                                    </option>
-                                                    <option value=1>Aktif</option>
-                                                    <option value=0>Belum Aktif</option>
-                                                </select>
+                                @if ($getArtikel)
+                                    @forelse ($getArtikel as $no => $item)
+                                        <tr class="border-b border-gray-400/50">
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                {{ $no + 1 }}
                                             </td>
-                                        @endhasrole
-                                        @hasrole('petugas')
-                                            <td>
-                                                <p class="badge {{ $item->active ? 'bg-green-500' : 'bg-red-500' }}">
-                                                    {{ $item->active ? 'Aktif' : 'Belum Aktif' }}</p>
+                                            <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                                {{ $item->judul }}</a>
                                             </td>
-                                        @endhasrole
-                                        <td>
-                                            @can('edit pinjaman user')
-                                                <a href="{{ route('artikel-edit', $item->id) }}"
-                                                    class="bg-orange-400 text-white py-1 px-3 hover:cursor-pointer rounded-md hover:bg-orange-500 duration-300 transition">Edit</a>
-                                            @endcan
-                                            @can('delete pinjaman user')
-                                                <button wire:click="deleteArtikel({{ $item->id }})"
-                                                    class="bg-red-400 text-white py-1 px-3 hover:cursor-pointer rounded-md hover:bg-red-500 duration-300 transition">Delete</button>
-                                            @endcan
-                                        </td>
-                                    </tr>
-                                @empty
-                                @endforelse
+                                            <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                                <div class="flex flex-col gap-y-1">
+                                                    <span
+                                                        class="border-b border-gray-400/50 bg-green-500 inline rounded-md px-2 text-white text-sm">
+                                                        {{ $item->user->username }}</span>
+                                                </div>
+                                            </td>
+
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                {{ $item->kategori->judul }}
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                {{ $item->visitor }}
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                {{ $item->created_at->diffForhumans() }}
+                                            </td>
+
+
+                                            @hasrole('super admin')
+                                                <td>
+                                                    <select
+                                                        wire:change="changeStatus($event.target.value, {{ $item->id }})"
+                                                        name="" id=""
+                                                        class="{{ $item->active ? 'bg-green-500' : 'bg-red-500' }}">
+                                                        <option value="" selected>
+                                                            {{ $item->active ? 'Aktif' : 'Belum Aktif' }}
+                                                        </option>
+                                                        <option value=1>Aktif</option>
+                                                        <option value=0>Belum Aktif</option>
+                                                    </select>
+                                                </td>
+                                            @endhasrole
+                                            @hasrole('petugas')
+                                                <td>
+                                                    <p class="badge {{ $item->active ? 'bg-green-500' : 'bg-red-500' }}">
+                                                        {{ $item->active ? 'Aktif' : 'Belum Aktif' }}</p>
+                                                </td>
+                                            @endhasrole
+                                            <td>
+                                                @can('edit pinjaman user')
+                                                    <a href="{{ route('artikel-edit', $item->id) }}"
+                                                        class="bg-orange-400 text-white py-1 px-3 hover:cursor-pointer rounded-md hover:bg-orange-500 duration-300 transition">Edit</a>
+                                                @endcan
+                                                @can('delete pinjaman user')
+                                                    <button wire:click="deleteArtikel({{ $item->id }})"
+                                                        class="bg-red-400 text-white py-1 px-3 hover:cursor-pointer rounded-md hover:bg-red-500 duration-300 transition">Delete</button>
+                                                @endcan
+                                            </td>
+                                        </tr>
+                                    @empty
+                                    @endforelse
+                                @endif
 
                             </tbody>
                             {{-- {{ $profileUser->links() }} --}}

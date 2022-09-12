@@ -18,4 +18,9 @@ class DetailDataPinjaman extends Model
     {
         return $this->belongsTo(DataAngsuran::class);
     }
+
+    public function pinjaman_user()
+    {
+        return $this->hasMany(PinjamanUser::class);
+    }
 }

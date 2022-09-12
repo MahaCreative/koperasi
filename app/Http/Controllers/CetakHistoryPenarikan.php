@@ -24,7 +24,7 @@ class CetakHistoryPenarikan extends Controller
         $profile = ProfileKoperasi::first();
         // dd($profile);
         $histori = session('data');
-        // dd($histori);
+        // dd($histori[0]['nama_lengkap']);
         return view('cetak.cetak-histori-pembayaran-pinjaman', compact('histori', 'profile'));
     }
 }

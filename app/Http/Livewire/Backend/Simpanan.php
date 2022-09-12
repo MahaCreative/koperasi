@@ -47,39 +47,25 @@ class Simpanan extends Component
 
         if ($this->checkRole == 'super admin') {
             $simpananUser = SimpananUser::latest()->get();
+            // dd($simpananUser);
         } else if ($this->checkRole == 'petugas') {
             $simpananUser = SimpananUser::where('petugas_id', auth()->user()->id)->latest()->get();
         } else if ($this->checkRole == 'anggota') {
             $simpananUser = SimpananUser::where('profile_user_id', auth()->user()->profile->id)->latest()->get();
         }
-
         return view('livewire.backend.simpanan', compact('jenisSimpanan', 'simpananUser'))->layout('layouts.app');
     }
 
-    public function tambahSimpanan()
-    {
-        $simpanan = SimpananUser::create([
-            'jenis_simpanan_id' => $this->jenis_simpanan,
-            'profile_user_id' => $this->idAnggota,
-            'petugas_id' => auth()->user()->id,
-            'kode_simpanan' => $this->kode_simpanan,
-
-            'status_simpanan' => false,
-            'keterangan' => 'Belum di ambil',
-            'tanggal_simpanan' => now()->format('Y-m-d'),
-        ]);
-        $this->resetPage();
-    }
 
     public function tarik($data, $value)
     {
-
+        // dd($data);
         $this->activity = $value;
         $this->tarikSimpanan = PenarikanSimpanan::where('simpanan_user_id', $data['id'])->get();
 
         $this->simpananUserId = $data['id'];
         if (count($this->tarikSimpanan) == 0) {
-            $this->total_simpanan = format_uang($data['jenis_simpanan']['jumlah']);
+            $this->total_simpanan = format_uang($data['pinjaman_user']['detail_data_pinjaman']['simpanan']);
         } else {
             $tarik = DetailPenarikanSimpanan::where('penarikan_simpanan_id', $this->tarikSimpanan[0]->id)->latest()->get()->take(1);
             if (count($tarik) > 0) {

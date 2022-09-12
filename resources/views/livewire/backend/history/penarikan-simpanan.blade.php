@@ -30,9 +30,9 @@
         <div class="flex lg:flex-row flex-col justify-between gap-y-2">
             <div class="flex gap-x-2">
 
-                <button wire:click='displaymodal()' type="submit" data-bs-toggle="modal" data-bs-target="#modalsLarge"
+                {{-- <button wire:click='displaymodal()' type="submit" data-bs-toggle="modal" data-bs-target="#modalsLarge"
                     class="border border-gray-400/50 shadow rounded-md p-2 hover:cursor-pointer hover:bg-gray-500/50 hover:text-white transition duration-300 ease-in">
-                    Export PDF</button>
+                    Export PDF</button> --}}
 
                 <button wire:click='displaymodal("filter")' type="submit" data-bs-toggle="modal"
                     data-bs-target="#modalsLarge"
@@ -104,16 +104,15 @@
                                                 {{ $no + 1 }}
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                {{ $item->penarikan_simpanan->simpanan_user->profile->nama_lengkap }}
+                                                {{ $item->nama_lengkap }}
+                                                {{-- {{ $item->penarikan_simpanan->simpanan_user }} --}}
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                {{ $item->penarikan_simpanan->simpanan_user->kode_simpanan }}
+                                                {{ $item->kode_simpanan }}
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                @if ($item->penarikan_simpanan->simpanan_user->jenis_simpanan_id)
-                                                    Rp.
-                                                    {{ format_uang($item->penarikan_simpanan->simpanan_user->jenis_simpanan->jumlah) }}
-                                                @endif
+                                                {{ format_uang($item->simpanan) }}
+
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                                 {{ $item->tanggal_penarikan }}
@@ -125,7 +124,7 @@
                                                 Rp. {{ format_uang($item->sisa_simpanan) }}
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                {{ $item->petugas->username }}
+                                                {{ $item->username }}
                                             </td>
 
                                         </tr>

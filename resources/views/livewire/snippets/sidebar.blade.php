@@ -25,8 +25,7 @@
             <ul class="sub-menu">
                 <li><a class="link_name" href="#">Master Data</a></li>
                 <li><a href="{{ route('data-pinjaman') }}">Data Pinjaman</a></li>
-                <li><a href="{{ route('jenis-simpanan') }}">Jenis Simpanan</a></li>
-                @can('lihat data anggota')
+                @can('lihat anggota')
                     <li><a href="{{ route('anggota-koperasi') }}">Anggota Koperasi</a></li>
                 @endcan
                 @can('lihat akun petugas')

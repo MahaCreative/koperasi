@@ -10,6 +10,7 @@ use App\Models\Pekerjaan;
 use App\Models\PembayaranUser;
 use App\Models\PinjamanUser as ModelsPinjamanUser;
 use App\Models\ProfileUser;
+use App\Models\SimpananUser;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -43,6 +44,8 @@ class PinjamanUser extends Component
     public $dataCetak = [];
     public function mount()
     {
+
+
         $this->checkRole  = auth()->user()->getRoleNames()[0];
 
         $pinjaman = ModelsPinjamanUser::latest()->get();
@@ -61,9 +64,13 @@ class PinjamanUser extends Component
 
         if ($this->checkRole == 'super admin') {
             if ($this->search == '') {
-                $pinjamanUsers = ModelsPinjamanUser::with('profile', 'detail_data_pinjaman')->latest()->paginate($this->paginate);
+                $pinjamanUsers = ModelsPinjamanUser::with(['profile', 'detail_data_pinjaman' => function ($query) {
+                    $query->with('data_angsuran', 'data_pinjaman');
+                }])->latest()->paginate($this->paginate);
             } else {
-                $pinjamanUsers = ModelsPinjamanUser::with('profile', 'detail_data_pinjaman')
+                $pinjamanUsers = ModelsPinjamanUser::with(['profile', 'detail_data_pinjaman' => function ($query) {
+                    $query->with('data_angsuran', 'data_pinjaman');
+                }])
                     ->join('profile_users', 'profile_users.id', '=', 'pinjaman_users.profile_user_id')
                     ->where('profile_users.nama_lengkap', 'like', '%' . $this->search . '%')
                     ->select('profile_users.nama_lengkap as nama', 'pinjaman_users.*')
@@ -71,9 +78,13 @@ class PinjamanUser extends Component
             }
         } else if ($this->checkRole == 'petugas') {
             if ($this->search == '') {
-                $pinjamanUsers = ModelsPinjamanUser::where('petugas_id', auth()->user()->id)->with('profile', 'detail_data_pinjaman')->latest()->paginate($this->paginate);
+                $pinjamanUsers = ModelsPinjamanUser::where('petugas_id', auth()->user()->id)->with(['profile', 'detail_data_pinjaman' => function ($query) {
+                    $query->with('data_angsuran', 'data_pinjaman');
+                }])->latest()->paginate($this->paginate);
             } else {
-                $pinjamanUsers = ModelsPinjamanUser::with('profile', 'detail_data_pinjaman')
+                $pinjamanUsers = ModelsPinjamanUser::with(['profile', 'detail_data_pinjaman' => function ($query) {
+                    $query->with('data_angsuran', 'data_pinjaman');
+                }])
                     ->where('petugas_id', auth()->user()->id)
                     ->join('profile_users', 'profile_users.id', '=', 'pinjaman_users.profile_user_id')
                     ->where('profile_users.nama_lengkap', 'like', '%' . $this->search . '%')
@@ -83,9 +94,13 @@ class PinjamanUser extends Component
         } else if ($this->checkRole == 'anggota') {
             if ($this->search == '') {
                 // dd(auth()->user()->profile()->get());
-                $pinjamanUsers = ModelsPinjamanUser::where('profile_user_id', auth()->user()->profile->id)->with('profile', 'detail_data_pinjaman')->latest()->paginate($this->paginate);
+                $pinjamanUsers = ModelsPinjamanUser::where('profile_user_id', auth()->user()->profile->id)->with(['profile', 'detail_data_pinjaman' => function ($query) {
+                    $query->with('data_angsuran', 'data_pinjaman');
+                }])->latest()->paginate($this->paginate);
             } else {
-                $pinjamanUsers = ModelsPinjamanUser::with('profile', 'detail_data_pinjaman')
+                $pinjamanUsers = ModelsPinjamanUser::with(['profile', 'detail_data_pinjaman' => function ($query) {
+                    $query->with('data_angsuran', 'data_pinjaman');
+                }])
                     ->where('profile_id', auth()->user()->id)
                     ->join('profile_users', 'profile_users.id', '=', 'pinjaman_users.profile_user_id')
                     ->where('profile_users.nama_lengkap', 'like', '%' . $this->search . '%')
@@ -93,14 +108,82 @@ class PinjamanUser extends Component
                     ->latest()->paginate($this->paginate);
             }
         }
-
-        return view('livewire.backend.pinjaman-user', compact('pekerjaan', 'dataPinjaman', 'dataAngsuran', 'pinjamanUsers'));
+        $this->data = json_encode($pinjamanUsers);
+        return view('livewire.backend.pinjaman-user', compact('pekerjaan', 'dataPinjaman', 'dataAngsuran', 'pinjamanUsers'), ['data' => $this->data]);
+    }
+    public function print($value)
+    {
+        return redirect()->route('cetak-pinjaman-anggota')->with(['data' => $value]);
     }
 
+    public function printPembayaran()
+    {
+        // dd($this->lihatpembayaran);
+        return redirect()->route('cetak-pembayaran')->with(['data' => $this->lihatpembayaran]);
+    }
     public function changeStatusPinjaman($value, $id)
     {
         $pinjaman = ModelsPinjamanUser::findOrfail($id);
         $pinjaman->update(['status_pinjaman' => $value]);
+    }
+
+    public function changeStatusLunasPinjaman($value, $id)
+    {
+        $pinjaman = ModelsPinjamanUser::findOrfail($id);
+        if ($value == false) {
+            $pinjaman->pembayaran_user->detail_pembayaran_user()->delete();
+            $pinjaman->pembayaran_user->delete();
+            $pinjaman->simpanan_user->delete();
+            $pinjaman->update(['status_lunas' => false]);
+        } else {
+            $pinjaman->update(['status_lunas' => true]);
+            $countPembayaran = PembayaranUser::all();
+            $this->kode_pembayaran = 'BY00' . str_replace('-', '', now()->format('d-m')) . (count($countPembayaran) + 1);
+
+            $s = SimpananUser::all();
+            $count = count($s);
+            // dd($count);
+            $simpanan = SimpananUser::create([
+                'pinjaman_user_id' => $pinjaman->id,
+                'profile_user_id' => $pinjaman->profile_user_id,
+                'petugas_id' => $pinjaman->petugas_id,
+                'kode_simpanan' => 'S00' . str_replace('-', '', now()->format('d-m')) . ($count + 1),
+                'tanggal_simpanan' => now()
+            ]);
+
+            if ($pinjaman->pembayaran_user) {
+                $s = count($pinjaman->pembayaran_user->detail_pembayaran_user);
+
+                $pinjaman->pembayaran_user->detail_pembayaran_user()->create([
+                    'pinjaman_user_id' => $pinjaman->id,
+                    'pembayaran_user_id' => $pinjaman->pembayaran_user->id,
+                    'angsuran_ke' => 1,
+                    'total_pinjaman' => $pinjaman->detail_data_pinjaman->data_pinjaman->pinjaman,
+                    'pembayaran' => $pinjaman->pembayaran_user->detail_pembayaran_user[$s - 1]->sisa_pinjaman,
+                    'sisa_pinjaman' => 0,
+                    'satus_angsuran_ke' => 'melunasi pinjaman',
+                    'petugas_id' => auth()->user()->id,
+                ]);
+            } else {
+                $pembayaran = $pinjaman->pembayaran_user()->create([
+                    'kode_pembayaran' => $this->kode_pembayaran,
+                    'pinjaman_user_id' => $this->getPinjamanId,
+                    'keterangan' => '',
+                    'petugas_id' => auth()->user()->id,
+                ]);
+
+                $pembayaran->detail_pembayaran_user()->create([
+                    'pinjaman_user_id' => $pinjaman->id,
+                    'pembayaran_user_id' => $pembayaran->id,
+                    'angsuran_ke' => 1,
+                    'total_pinjaman' => $pinjaman->detail_data_pinjaman->data_pinjaman->pinjaman,
+                    'pembayaran' => $pinjaman->detail_data_pinjaman->data_pinjaman->pinjaman,
+                    'sisa_pinjaman' => 0,
+                    'satus_angsuran_ke' => 'melunasi pinjaman',
+                    'petugas_id' => auth()->user()->id,
+                ]);
+            }
+        }
     }
 
     public function pilihAnggota($data)
@@ -293,7 +376,7 @@ class PinjamanUser extends Component
             } else if ($this->sisa_angsuran > 0) {
                 $this->status_angsuran = 'Separuh';
             } else if ($this->sisa_angsuran < 0) {
-                $this->status_angsuran = 'Lengkaoi Pembayaran Sebelumnya';
+                $this->status_angsuran = 'Lengkapi Pembayaran Sebelumnya';
             }
         }
     }
@@ -333,6 +416,16 @@ class PinjamanUser extends Component
         if ($this->detail_sisa_pinjaman == 0) {
             $pinjamanUser = ModelsPinjamanUser::findOrfail($this->getPinjamanId);
             $pinjamanUser->update(['status_lunas' => true]);
+            $s = SimpananUser::all();
+            $count = count($s);
+            // dd($count);
+            $simpanan = SimpananUser::create([
+                'pinjaman_user_id' => $this->getPinjamanId,
+                'profile_user_id' => $pinjamanUser->profile_user_id,
+                'petugas_id' => auth()->user()->id,
+                'kode_simpanan' => 'S00' . str_replace('-', '', now()->format('d-m')) . ($count + 1),
+                'tanggal_simpanan' => now()
+            ]);
         }
         $this->sisa_pinjaman_sebelumnya = $this->detail_sisa_pinjaman;
         $this->sisa_angsuran = '';

@@ -76,9 +76,11 @@
         <div class="flex justify-between">
             <div class="flex gap-x-2">
 
-                <button type="submit" data-bs-toggle="modal" data-bs-target="#modalsLarge"
-                    class="border border-gray-400/50 shadow rounded-md p-2 hover:cursor-pointer hover:bg-gray-500/50 hover:text-white transition duration-300 ease-in">Tambah
-                    Akun Petugas</button>
+                @can('create akun petugas')
+                    <button type="submit" data-bs-toggle="modal" data-bs-target="#modalsLarge"
+                        class="border border-gray-400/50 shadow rounded-md p-2 hover:cursor-pointer hover:bg-gray-500/50 hover:text-white transition duration-300 ease-in">Tambah
+                        Akun Petugas</button>
+                @endcan
 
                 <div>
                     <Label>Filter</Label>
@@ -92,18 +94,18 @@
                         <option value="all">Lihat Semua</option>
                     </select>
                 </div>
-                @can('cetak anggota koperasi')
+                {{-- @can('cetak anggota koperasi')
                     <button type="submit" data-bs-toggle="modal" data-bs-target="#modalsLarge"
                         class="border border-gray-400/50 shadow rounded-md p-2 hover:cursor-pointer hover:bg-gray-500/50 hover:text-white transition duration-300 ease-in">Tambah
                         Export PDF</button>
-                @endcan
+                @endcan --}}
             </div>
             <div class="flex gap-x-2   items-center">
-                <input wire:model='search' type="text" placeholder="Search..."
-                    class="border border-gray-400/50 rounded-md px-2 py-1 mb-2">
-                <button type="submit" data-bs-toggle="modal" data-bs-target="#modalsLarge"
+                {{-- <input wire:model='search' type="text" placeholder="Search..."
+                    class="border border-gray-400/50 rounded-md px-2 py-1 mb-2"> --}}
+                {{-- <button type="submit" data-bs-toggle="modal" data-bs-target="#modalsLarge"
                     class="border border-gray-400/50 shadow   rounded-md p-2 hover:cursor-pointer hover:bg-gray-500/50 hover:text-white transition duration-300 ease-in">
-                    Print</button>
+                    Print</button> --}}
             </div>
 
         </div>
@@ -158,15 +160,15 @@
                                         @endif
 
                                         <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                            {{-- @can('edit anggota koperasi') --}}
-                                            <button data-bs-toggle="modal" data-bs-target="#modalsLarge"
-                                                wire:click="edit({{ $item }})"
-                                                class="bg-orange-400 text-white py-1 px-3 hover:cursor-pointer rounded-md hover:bg-orange-500 duration-300 transition">Edit</button>
-                                            {{-- @endcan --}}
-                                            {{-- @can('delete anggota koperasi') --}}
-                                            <button wire:click="delete({{ $item->id }})"
-                                                class="bg-red-400 text-white py-1 px-3 hover:cursor-pointer rounded-md hover:bg-red-500 duration-300 transition">Delete</button>
-                                            {{-- @endcan --}}
+                                            @can('edit akun petugas')
+                                                <button data-bs-toggle="modal" data-bs-target="#modalsLarge"
+                                                    wire:click="edit({{ $item }})"
+                                                    class="bg-orange-400 text-white py-1 px-3 hover:cursor-pointer rounded-md hover:bg-orange-500 duration-300 transition">Edit</button>
+                                            @endcan
+                                            @can('delete akun petugas')
+                                                <button wire:click="delete({{ $item->id }})"
+                                                    class="bg-red-400 text-white py-1 px-3 hover:cursor-pointer rounded-md hover:bg-red-500 duration-300 transition">Delete</button>
+                                            @endcan
                                         </td>
                                     </tr>
                                 @empty

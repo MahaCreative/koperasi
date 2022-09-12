@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Backend;
 
 use App\Models\Pekerjaan;
 use App\Models\ProfileUser;
+use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -15,10 +16,12 @@ class AnggotaKoperasi extends Component
     public $paginate;
     public $search;
     public $checkRole;
+    protected $data;
+    public $getProfiles, $profileId;
+    public $username, $email, $photo, $password, $password_confirmation;
     public $nik, $no_kk, $nama_lengkap, $tempat_lahir, $ttl, $no_telp, $alamat, $kecamatan, $kelurahan, $kabupaten, $provinsi, $pekerjaan_id;
     protected $rules = [
         'nik' => 'required|max:16|min:16',
-        'no_kk' => 'required|max:16|min:16',
         'nama_lengkap' => 'required',
         'tempat_lahir' => 'required',
         'ttl' => 'required|before:now',
@@ -31,7 +34,6 @@ class AnggotaKoperasi extends Component
 
     protected $messages = [
         'nik.required' => 'nik tidak boleh kosong',
-        'no_kk.required' => 'no_kk tidak boleh kosong',
         'nama_lengkap.required' => 'nama_lengkap tidak boleh kosong',
         'tempat_lahir.required' => 'tempat_lahir tidak boleh kosong',
         'ttl.required' => 'ttl tidak boleh kosong',
@@ -44,6 +46,8 @@ class AnggotaKoperasi extends Component
         'nik.min' => 'Nik minimal 16 angka',
         'no_kk.min' => 'No KK minimal 16 angka',
     ];
+
+    public $viewModals = 'tambah-anggota';
 
     public function updated($propertyName)
     {
@@ -61,29 +65,36 @@ class AnggotaKoperasi extends Component
 
         if ($this->search == '') {
             if ($this->checkRole == 'super admin') {
-                $profileUser = ProfileUser::latest()->paginate($this->paginate);
+                $profileUser = ProfileUser::with('pekerjaan')->latest()->paginate($this->paginate);
             } else  if ($this->checkRole == 'petugas') {
-                $profileUser = ProfileUser::where('petugas_id', auth()->user()->id)->latest()->paginate($this->paginate);
+                $profileUser = ProfileUser::with('pekerjaan')->where('petugas_id', auth()->user()->id)->latest()->paginate($this->paginate);
             } else  if ($this->checkRole == 'super admin') {
             }
         } else {
             if ($this->checkRole == 'super admin') {
 
-                $profileUser = ProfileUser::where('nama_lengkap', 'like', '%' . $this->search . '%')
+                $profileUser = ProfileUser::with('pekerjaan')->where('nama_lengkap', 'like', '%' . $this->search . '%')
                     ->orWhere('nik', 'like', '%' . $this->search . '%')
                     ->latest()->paginate($this->paginate);
             } else  if ($this->checkRole == 'petugas') {
-                $profileUser = ProfileUser::where('petugas_id', auth()->user()->id)
+                $profileUser = ProfileUser::with('pekerjaan')->where('petugas_id', auth()->user()->id)
                     ->where('nama_lengkap', 'like', '%' . $this->search . '%')
                     ->orWhere('nik', 'like', '%' . $this->search . '%')
                     ->latest()->paginate($this->paginate);
-            } else  if ($this->checkRole == 'super admin') {
             }
         }
-
-        return view('livewire.backend.anggota-koperasi', compact('pekerjaan', 'profileUser'));
+        $this->data = json_encode($profileUser);
+        // dd($profileUser);
+        return view('livewire.backend.anggota-koperasi', compact('pekerjaan', 'profileUser',), ['data' => $this->data]);
     }
+    public function displayModals($value, $id)
+    {
+        $this->viewModals = $value;
+        $this->profileId = $id;
 
+        // dd($profiles);
+        // dd($this->viewModals);
+    }
     public function submitHandler()
     {
         $this->validate();
@@ -105,6 +116,38 @@ class AnggotaKoperasi extends Component
         ]);
         $this->resetPage();
         $this->info('menambah');
+    }
+    public function print($value)
+    {
+        // dd($value);
+        redirect()->route('cetak-anggota-koperasi')->with(['data' => $value]);
+    }
+
+    public function submitHandlerAkun()
+    {
+        $this->getProfiles = ProfileUser::findOrfail($this->profileId);
+
+        $this->validate([
+            'username' => 'required|unique:users,username',
+            'email' => 'required|unique:users,email',
+            'password' => 'required',
+
+        ]);
+
+
+
+        if ($this->password == $this->password_confirmation) {
+
+            $user = User::create([
+                'username' => $this->username,
+                'email' => $this->email,
+                'password' => bcrypt($this->password),
+            ]);
+            $this->getProfiles->update(['user_id' => $user->id]);
+            $user->assignRole('anggota');
+        }
+        $this->info('menambah');
+        $this->viewModals = 'tambah-anggota';
     }
 
     public function edit($data)

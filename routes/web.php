@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\CetaKAnggotaKoperasi;
 use App\Http\Controllers\CetakHistoryPenarikan;
+use App\Http\Controllers\cetakPembayaran;
+use App\Http\Controllers\CetakPinjamanAnggota;
 use App\Http\Livewire\Backend\AnggotaKoperasi;
 use App\Http\Livewire\Backend\Artikel\Create;
 use App\Http\Livewire\Backend\Artikel\Edit;
@@ -112,7 +115,9 @@ Route::middleware('auth')->group(function () {
     Route::get('histori-penarikan-simpanan', PenarikanSimpanan::class)->name('histori-penarikan-simpanan');
     Route::get('cetak-histori-penarikan-simpanan', [CetakHistoryPenarikan::class, 'index'])->name('cetak-histori-penarikan-simpanan');
 
-
     Route::get('histori-pembayaran-pinjaman', PembayaranPinjaman::class)->name('histori-pembayaran-pinjaman');
     Route::get('cetak-histori-pembayaran-pinjaman', [CetakHistoryPenarikan::class, 'hitoriPembayaran'])->name('cetak-histori-pembayaran-pinjaman');
+    Route::get('cetak-anggota-koperasi', [CetaKAnggotaKoperasi::class, 'index'])->name('cetak-anggota-koperasi');
+    Route::get('cetak-pinjaman-anggota', [CetakPinjamanAnggota::class, 'index'])->name('cetak-pinjaman-anggota');
+    Route::get('cetak-pembayaran-pinjaman', [cetakPembayaran::class, 'index'])->name('cetak-pembayaran');
 });

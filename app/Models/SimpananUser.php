@@ -28,4 +28,9 @@ class SimpananUser extends Model
     {
         return $this->hasOne(PenarikanSimpanan::class);
     }
+
+    public function pinjaman_user()
+    {
+        return $this->belongsTo(PinjamanUser::class);
+    }
 }

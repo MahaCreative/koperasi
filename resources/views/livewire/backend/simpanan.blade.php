@@ -99,7 +99,7 @@
             <div
                 class="border lg:text-base text-sm border-gray-400/50 shadow-md shadow-gray-500/50 rounded-md p-3 my-2 overflow-x-auto">
                 <div class="flex lg:flex-row flex-col justify-between gap-y-2">
-                    <div class="flex gap-x-2">
+                    {{-- <div class="flex gap-x-2">
                         <button data-bs-toggle="modal" data-bs-target="#modalsLarge"
                             class="border border-gray-400/50 shadow rounded-md p-2 hover:cursor-pointer hover:bg-gray-500/50 hover:text-white transition duration-300 ease-in">
                             Export PDF</button>
@@ -110,7 +110,7 @@
                         <button type="submit" data-bs-toggle="modal" data-bs-target="#modalsLarge"
                             class="border border-gray-400/50 shadow   rounded-md p-2 hover:cursor-pointer hover:bg-gray-500/50 hover:text-white transition duration-300 ease-in">
                             Print</button>
-                    </div>
+                    </div> --}}
 
                 </div>
 
@@ -250,15 +250,7 @@
     <div class="border lg:text-base text-sm border-gray-400/50 shadow-md shadow-gray-500/50 rounded-md p-3 my-2">
         <div class="flex lg:flex-row flex-col justify-between gap-y-2">
             <div class="flex gap-x-2">
-                @can('create simpanan user')
-                    <button wire:click="$set('activity', 'Buat simpanan')" data-bs-toggle="modal"
-                        data-bs-target="#modalsLarge"
-                        class="border border-gray-400/50 shadow rounded-md p-2 hover:cursor-pointer hover:bg-gray-500/50 hover:text-white transition duration-300 ease-in">Tambah
-                        Simpanan</button>
-                @endcan
-                <button data-bs-toggle="modal" data-bs-target="#modalsLarge"
-                    class="border border-gray-400/50 shadow rounded-md p-2 hover:cursor-pointer hover:bg-gray-500/50 hover:text-white transition duration-300 ease-in">
-                    Export PDF</button>
+
                 <div>
                     <Label>Filter</Label>
                     <select
@@ -333,7 +325,10 @@
                                             <p>{{ $item->kode_simpanan }}</p>
                                         </td>
                                         <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                            <p>Rp. {{ format_uang($item->jenis_simpanan->jumlah) }}</p>
+                                            <p>Rp.
+                                                {{ format_uang($item->pinjaman_user->detail_data_pinjaman->simpanan) }}
+                                            </p>
+
                                         </td>
                                         <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                             <p>{{ $item->petugas->username }}</p>

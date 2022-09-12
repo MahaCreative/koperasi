@@ -26,30 +26,17 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('password')
 
         ]);
-        $user2 = User::create([
-            'username' => 'petugas',
-            'email' => 'petugas@gmail.com',
-            'password' => bcrypt('password')
-
-        ]);
-        $user3 = User::create([
-            'username' => 'anggota',
-            'email' => 'anggota@gmail.com',
-            'password' => bcrypt('password')
-
-        ]);
 
         $this->call([
             ProfileKoperasiSeeder::class,
             PermissionSeeder::class,
             RoleSeeder::class,
             PekerjaanSeeder::class,
-            ProfileSeeder::class
+            // ProfileSeeder::class
         ]);
 
         $user->assignRole('super admin');
-        $user2->assignRole('petugas');
-        $user3->assignRole('anggota');
+
         $role1 = Role::find(1);
         $role1->givePermissionTo([
             'create jenis simpanan',
@@ -64,6 +51,7 @@ class DatabaseSeeder extends Seeder
             'edit anggota',
             'delete anggota',
             'cetak anggota',
+
             // Pinjaman User
             'create pinjaman user',
             'edit pinjaman user',

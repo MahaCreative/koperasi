@@ -32,39 +32,36 @@
         </thead>
         <tbody>
             @if ($histori !== null)
-                @forelse ($histori as $no => $item)
-                    <tr class="border-b border-black">
+                @for ($i = 0; $i < count($histori); $i++)
+                    <tr class="border-b border-gray-400/50">
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                            {{ $no + 1 }}
+                            {{ $i + 1 }}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                            {{ $item->penarikan_simpanan->simpanan_user->profile->nama_lengkap }}
+                            {{ $histori[$i]['nama_lengkap'] }}
+                            {{-- {{ $histori[$i]['penarikan_simpanan']->simpanan_user }} --}}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                            {{ $item->penarikan_simpanan->simpanan_user->kode_simpanan }}
+                            {{ $histori[$i]['kode_simpanan'] }}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                            @if ($item->penarikan_simpanan->simpanan_user->jenis_simpanan_id)
-                                Rp.
-                                {{ format_uang($item->penarikan_simpanan->simpanan_user->jenis_simpanan->jumlah) }}
-                            @endif
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                            {{ $item->tanggal_penarikan }}
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                            Rp. {{ format_uang($item->jumlah_penarikan) }}
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                            Rp. {{ format_uang($item->sisa_simpanan) }}
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                            {{ $item->petugas->username }}
-                        </td>
+                            {{ format_uang($histori[$i]['simpanan']) }}
 
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                            {{ $histori[$i]['tanggal_penarikan'] }}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                            Rp. {{ format_uang($histori[$i]['jumlah_penarikan']) }}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                            Rp. {{ format_uang($histori[$i]['sisa_simpanan']) }}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                            {{ $histori[$i]['username'] }}
+                        </td>
                     </tr>
-                @empty
-                @endforelse
+                @endfor
             @endif
 
         </tbody>

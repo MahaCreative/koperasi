@@ -273,14 +273,19 @@
                                                 Rp. {{ format_uang($item->simpanan) }}
                                             </td>
                                             <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                                @can('edit data pinjaman')
-                                                    <button wire:click="editDetail({{ $item }})"
-                                                        class="bg-orange-400 text-white py-1 px-3 hover:cursor-pointer rounded-md hover:bg-orange-500 duration-300 transition">Edit</button>
-                                                @endcan
-                                                @can('delete data pinjaman')
-                                                    <button wire:click="deleteDetail({{ $item->id }})"
-                                                        class="bg-red-400 text-white py-1 px-3 hover:cursor-pointer rounded-md hover:bg-red-500 duration-300 transition">Delete</button>
-                                                @endcan
+
+
+                                                @if (count($item->pinjaman_user) == 0)
+                                                    @can('edit data pinjaman')
+                                                        <button wire:click="editDetail({{ $item }})"
+                                                            class="bg-orange-400 text-white py-1 px-3 hover:cursor-pointer rounded-md hover:bg-orange-500 duration-300 transition">Edit</button>
+                                                    @endcan
+                                                    @can('delete data pinjaman')
+                                                        <button wire:click="deleteDetail({{ $item->id }})"
+                                                            class="bg-red-400 text-white py-1 px-3 hover:cursor-pointer rounded-md hover:bg-red-500 duration-300 transition">Delete</button>
+                                                    @endcan
+                                                @endif
+
                                             </td>
                                         </tr>
                                     @empty

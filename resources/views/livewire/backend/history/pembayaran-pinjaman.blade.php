@@ -24,17 +24,17 @@
 
     <div class="border-b border-emerald-400">
         <span><a href="{{ route('dashboard') }}">Dashboard /</a></span>
-        <span><a class="text-emerald-400" href="{{ Request::url() }}">History Penarikan Simpanan </a></span>
+        <span><a class="text-emerald-400" href="{{ Request::url() }}">History Pembayaran Pinjaman </a></span>
     </div>
     <div class="border lg:text-base text-sm border-gray-400/50 shadow-md shadow-gray-500/50 rounded-md p-3 my-2">
         <div class="flex lg:flex-row flex-col justify-between gap-y-2">
             <div class="flex gap-x-2">
 
-                <button wire:click='displaymodal()' type="submit" data-bs-toggle="modal" data-bs-target="#modalsLarge"
+                {{-- <button wire:click='displaymodal()' type="submit" data-bs-toggle="modal" data-bs-target="#modalsLarge"
                     class="border border-gray-400/50 shadow rounded-md p-2 hover:cursor-pointer hover:bg-gray-500/50 hover:text-white transition duration-300 ease-in">
-                    Export PDF</button>
+                    Export PDF</button> --}}
 
-                <button wire:click='displaymodal("filter")' type="submit" data-bs-toggle="modal"
+                <button wire:click.prevent='displaymodal("filter")' type="button" data-bs-toggle="modal"
                     data-bs-target="#modalsLarge"
                     class="border border-gray-400/50 shadow rounded-md p-2 hover:cursor-pointer hover:bg-gray-500/50 hover:text-white transition duration-300 ease-in">
                     Filter Berdasarkan Tanggal</button>
@@ -76,7 +76,7 @@
                                         Nama
                                     </th>
                                     <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                                        Kode Simpanan
+                                        Kode Pinjaman
                                     </th>
                                     <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                                         Besar Pinjaman
@@ -104,19 +104,19 @@
                                                 {{ $no + 1 }}
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                {{ $item->pembayaran_user->pinjaman_user->profile->nama_lengkap }}
+                                                {{ $item->nama_lengkap }}
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                {{ $item->pembayaran_user->pinjaman_user->kode_pinjaman }}
+                                                {{ $item->kode_pinjaman }}
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
 
                                                 Rp.
-                                                {{ format_uang($item->pembayaran_user->pinjaman_user->detail_data_pinjaman->data_pinjaman->pinjaman) }}
+                                                {{ format_uang($item->pinjaman) }}
 
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                {{ $item->created_at->format('d-m-y') }}
+                                                {{ $item->created_at }}
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                                 Rp. {{ format_uang($item->pembayaran) }}
@@ -125,7 +125,7 @@
                                                 Rp. {{ format_uang($item->sisa_pinjaman) }}
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                {{ $item->user->username }}
+                                                {{ $item->username }}
                                             </td>
 
                                         </tr>
