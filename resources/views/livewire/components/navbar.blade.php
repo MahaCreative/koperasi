@@ -51,7 +51,7 @@
                                         href="{{ route('register') }}">Register</a>
                                 </li>
                             @else
-                                <div class="flex justify-center items-center">
+                                <div class="flex items-center">
                                     <div>
                                         <div class="dropdown relative bg-primary rounded-md">
                                             <button

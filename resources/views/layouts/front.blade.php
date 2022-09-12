@@ -16,6 +16,8 @@
     </div>
     {{ $slot }}
 
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/script.js') }}"></script>
     <script src="{{ asset('js/tailwindelement.js') }}"></script>
     @livewireScripts
 </body>

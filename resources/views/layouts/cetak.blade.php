@@ -12,6 +12,7 @@
 
 <body>
     {{ $slot }}
+    <script src="{{ asset('js/tailwindelement.js') }}"></script>
     @livewireScripts
 </body>
 
