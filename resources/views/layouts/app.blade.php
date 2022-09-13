@@ -27,9 +27,7 @@
 
         <section class="home-section">
             <div class="home-content flex justify-between items-center">
-                <div><i class='bx bx-menu'></i>
-
-                </div>
+                <div><i class='bx bx-menu'></i></div>
                 <div class=" mx-8">
                     <a href="{{ route('logout') }}" class="text-emerald-400 hover:text-emerald-500">Logout</a>
                 </div>

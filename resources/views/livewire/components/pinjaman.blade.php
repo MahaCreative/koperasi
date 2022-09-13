@@ -14,7 +14,7 @@
                     <div class="flex justify-between">
                         <h3 class="font-bold text-[12pt] lg:text-[18pt]">Jumlah Pinjaman</h3>
                         <h3 class="font-bold text-[12pt] lg:text-[18pt] text-primary" id="jumlahPinjaman">
-                            {{ $valselectPinjaman }} Juta</h3>
+                            {{ format_uang($valselectPinjaman) }}</h3>
                     </div>
                     <div class="relative pt-1">
                         <label for="customRange1" class="form-label"></label>
@@ -22,7 +22,7 @@
                             class="w-full border border-emerald-400" name="" id="">
                             <option value="0">Pilih Pinjaman</option>
                             @forelse ($pinjaman as $item)
-                                <option value="{{ $item->id }}">{{ $item->pinjaman }}</option>
+                                <option value="{{ $item->id }}">{{ format_uang($item->pinjaman) }}</option>
                             @empty
                             @endforelse
                         </select>
@@ -53,10 +53,21 @@
                         <hp class="font-light text-secondary">{{ $maxDurasi }}</hp>
                     </div>
                     <div class="flex flex-col justify-between items-center">
-                        <h3 class="font-bold text-primary">Cicilan per bulan</h3>
+                        <h3 class="font-bold text-primary">Angsuran yang harus di bayar dengan angsuran
+                            {{ $valselectDurasi }}X</h3>
                         <p class="font-light text-secondary text-[12pt]">*sudah termasuk bunga dan biaya admin</p>
                         <p class="font-bold text-primary text-[24pt]">
-                            Rp. 209.600
+                            {{ $totalBayar ? format_uang($totalBayar) : '0' }}
+                        </p>
+                        <h3 class="font-bold text-primary">Total Yang Akan Diterima
+                        </h3>
+                        <p class="font-light text-secondary text-[12pt]">
+                            @if ($totalTerima)
+                                Pinjaman :{{ $valselectPinjaman }} - Simpanan :{{ $simpanan }}
+                            @endif
+                        </p>
+                        <p class="font-bold text-primary text-[24pt]">
+                            {{ $totalTerima ? format_uang($totalTerima) : '0' }}
                         </p>
                     </div>
                 </div>

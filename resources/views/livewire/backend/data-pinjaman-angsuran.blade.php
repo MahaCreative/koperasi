@@ -166,11 +166,11 @@
                     class="bi bi-dash-square-fill hover:text-gray-600 hover:cursor-pointer text-white text-[14pt] font-bold"></i>
             </div>
             @can('create data pinjaman')
-                <div class="border p-2">
-                    <form class="grid grid-cols-1 lg:grid-cols-4 gap-y-2 gap-x-2 shadow-md py-2"
+                <div class="border p-2 border-black">
+                    <form class="grid grid-cols-4  gap-y-2 gap-x-2 shadow-md py-2"
                         wire:submit.prevent="{{ $statusEditDetail ? 'updateDetail' : 'submitDetail' }}">
                         @csrf
-                        <div class="flex flex-col">
+                        <div class="flex flex-col col-span-4 lg:col-span-1 md:col-span-2">
                             <label for="">Limit Pinjaman</label>
                             <select wire:model="data_pinjaman_id" class="border rounded-md p-2 border-gray-400"
                                 name="" id="">
@@ -185,7 +185,7 @@
                             @enderror
                         </div>
 
-                        <div class="flex flex-col">
+                        <div class="flex flex-col col-span-4 lg:col-span-1 md:col-span-2">
                             <label for="">Durasi Angsuran</label>
                             <select wire:model="data_angsuran_id" class="border rounded-md p-2 border-gray-400"
                                 name="" id="">
@@ -200,7 +200,7 @@
                                 <p class="text-red-500 italic text-sm">{{ $message }}</p>
                             @enderror
                         </div>
-                        <div class="flex flex-col">
+                        <div class="flex flex-col col-span-4 lg:col-span-1 md:col-span-2">
                             <label for="">Angsuran</label>
                             <input wire:keyup="keyAngsuran" wire:model="angsuran"
                                 class="border rounded-md p-2 border-gray-400" type="number" name=""
@@ -209,7 +209,7 @@
                                 <p class="text-red-500 italic text-sm">{{ $message }}</p>
                             @enderror
                         </div>
-                        <div class="flex flex-col">
+                        <div class="flex flex-col col-span-4 lg:col-span-1 md:col-span-2">
                             <label for="">Simpanan</label>
                             <input wire:keyup="keySimpanan" wire:model="simpanan"
                                 class="border rounded-md p-2 border-gray-400" type="number">
