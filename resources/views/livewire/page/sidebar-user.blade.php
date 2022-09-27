@@ -4,6 +4,7 @@
         <div>
             @foreach ($iklan as $item)
                 <img class="my-2 w-[250px]" src="{{ asset($item->takeImage) }}" alt="">
+                {{-- <img class="my-2 w-[250px]" src="{{ asset('image/Untitled-1.png') }}" alt=""> --}}
             @endforeach
         </div>
     </div>
@@ -31,17 +32,17 @@
         <h3 class="border-b-2 mb-2 border-primary font-bold text-primary">New Post</h3>
         <ul>
             @foreach ($newPost as $item)
-                <li>
+                <li class="mb-3 border-b border-b-gray-300 py-3">
                     <a href="{{ route('artikel-view', $item->slug) }}">
-                        <div class="flex justify-center h-44 lg:h-36">
+                        <div class="flex justify-center">
                             <div class="flex flex-col md:flex-row md:max-w-xl rounded-lg bg-white shadow-lg">
-                                <img class=" w-full h-24 md:h-auto object-cover md:w-48 rounded-t-lg md:rounded-none md:rounded-l-lg"
+
+                                <img class=" w-20 h-20 md:h-20 object-cover md:w-20 rounded-t-lg md:rounded-none md:rounded-l-lg"
                                     src="{{ asset($item->takeImage) }}" alt="" />
-                                <div class="py-1 px-2 flex flex-col justify-start">
-                                    <h5 class="text-gray-900 text-lg font-medium mb-2">{{ $item->judul }}</h5>
-                                    <p class="text-gray-700  mb-4 text-xs">
-                                        {!! $item->kontent !!}
-                                    </p>
+                                <div class="py-1 px-2 flex flex-col justify-start ">
+                                    <h5 class="text-gray-900 text-lg font-medium mb-2 text-[10pt]">{{ $item->judul }}
+                                    </h5>
+
                                     <p class="text-gray-600 text-xs">Publish date:
                                         {{ $item->updated_at->diffForHumans() }}</p>
                                 </div>

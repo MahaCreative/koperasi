@@ -4,13 +4,15 @@
             @livewire('page.populer-post')
             {{-- Berita Terbaru --}}
             <div class="w-full my-3">
-                <h3 class="border-b mb-2 font-semibold">Postingan Terbaru</h3>
+                <h3 class="border-b mb-2 font-semibold">Postingan Terrbaru</h3>
                 @forelse ($artikel as $item)
                     <a href="{{ route('artikel-view', $item->slug) }}">
                         <div class="flex my-2 ">
                             <div class="flex flex-col md:flex-row rounded-lg bg-white shadow-lg w-full">
                                 <img class=" w-full h-96 md:h-auto object-cover md:w-48 rounded-t-lg md:rounded-none md:rounded-l-lg"
                                     src="{{ asset($item->takeImage) }}" alt="" />
+                                {{-- <img class=" w-full h-96 md:h-auto object-cover md:w-48 rounded-t-lg md:rounded-none md:rounded-l-lg"
+                                    src="{{ asset('image/Untitled-1.png') }}" alt="" /> --}}
                                 <div class="p-6 flex flex-col justify-start">
                                     <div class="border-b border-emerald-400 w-full">
                                         <h5 class="text-primary text-2xl font-bold">{{ $item->judul }}</h5>
