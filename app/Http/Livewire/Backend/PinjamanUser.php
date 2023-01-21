@@ -344,12 +344,12 @@ class PinjamanUser extends Component
                     $this->sisa_pinjaman_sebelumnya = $detail[0]->sisa_pinjaman;
                 } else {
                     $this->angsuran_ke = '1';
-                    $this->sisa_pinjaman_sebelumnya = format_uang($item['detail_data_pinjaman']['data_pinjaman']['pinjaman']);
+                    $this->sisa_pinjaman_sebelumnya = format_uang($item['detail_data_pinjaman']['angsuran'] * $item['detail_data_pinjaman']['data_angsuran']['durasi_angsuran']);
                 }
             } else {
                 $this->angsuran_ke = '1';
 
-                $this->sisa_pinjaman_sebelumnya = format_uang($item['detail_data_pinjaman']['data_pinjaman']['pinjaman']);
+                $this->sisa_pinjaman_sebelumnya = format_uang($item['detail_data_pinjaman']['angsuran'] * $item['detail_data_pinjaman']['data_angsuran']['durasi_angsuran']);
             }
             $this->kode_pembayaran = 'BY00' . str_replace('-', '', now()->format('d-m')) . (count($countPembayaran) + 1);
         } else if ($value == 'lihat pembayaran pinjaman') {
