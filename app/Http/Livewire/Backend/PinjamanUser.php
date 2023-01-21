@@ -329,9 +329,9 @@ class PinjamanUser extends Component
             $this->statusView = 'bayar pinjaman';
 
             $this->namaPeminjam = $item['profile']['nama_lengkap'];
-            $this->totalPinjaman = $item['detail_data_pinjaman']['data_pinjaman']['pinjaman'];
+            $this->totalPinjaman = $item['detail_data_pinjaman']{'data_pinjaman'}['pinjaman'];
             $this->totalAngsuran = $item['detail_data_pinjaman']['angsuran'];
-            $this->detail_pinjaman = format_uang($item['detail_data_pinjaman']['data_pinjaman']['pinjaman']);
+            $this->detail_pinjaman = format_uang($item['detail_data_pinjaman']['angsuran'] * $item['detail_data_pinjaman']['data_angsuran']['durasi_angsuran']);
             $this->detail_totalAngsuran = format_uang($item['detail_data_pinjaman']['angsuran']);
             $this->CheckPembayaran = PembayaranUser::where('pinjaman_user_id', $item['id'])->first();
             $this->getPinjamanId = $item['id'];
