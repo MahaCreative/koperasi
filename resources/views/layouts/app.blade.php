@@ -22,17 +22,17 @@
 </head>
 
 <body>
-    <div class="flex gap-x-3">
+    <div class="flex gap-x-3 ">
         @livewire('snippets.sidebar')
 
-        <section class="home-section">
+        <section class="home-section bg-white ">
             <div class="home-content flex justify-between items-center">
                 <div><i class='bx bx-menu'></i></div>
                 <div class=" mx-8">
                     <a href="{{ route('logout') }}" class="text-emerald-400 hover:text-emerald-500">Logout</a>
                 </div>
             </div>
-            <div class="content px-4">
+            <div class="bg-white px-4">
                 {{ $slot }}
             </div>
 
@@ -46,34 +46,34 @@
 
 
     <script>
-        let arrow = document.querySelectorAll(".arrow");
-        for (var i = 0; i < arrow.length; i++) {
-            arrow[i].addEventListener("click", (e) => {
-                let arrowParent = e.target.parentElement.parentElement; //selecting main parent of arrow
-                arrowParent.classList.toggle("showMenu");
-            });
-        }
-        let sidebar = document.querySelector(".sidebar");
-        let sidebarBtn = document.querySelector(".bx-menu");
-        console.log(sidebarBtn);
-        sidebarBtn.addEventListener("click", () => {
-            sidebar.classList.toggle("close");
+    let arrow = document.querySelectorAll(".arrow");
+    for (var i = 0; i < arrow.length; i++) {
+        arrow[i].addEventListener("click", (e) => {
+            let arrowParent = e.target.parentElement.parentElement; //selecting main parent of arrow
+            arrowParent.classList.toggle("showMenu");
         });
+    }
+    let sidebar = document.querySelector(".sidebar");
+    let sidebarBtn = document.querySelector(".bx-menu");
+    console.log(sidebarBtn);
+    sidebarBtn.addEventListener("click", () => {
+        sidebar.classList.toggle("close");
+    });
     </script>
     <script>
-        var Toast = Swal.mixin({
-            toast: true,
-            position: 'bottom',
-            showConfirmButton: false,
-            timer: 3000,
-        });
-        window.addEventListener('swal:modal', event => {
-            Toast.fire({
-                icon: event.detail.type,
-                title: event.detail.title,
+    var Toast = Swal.mixin({
+        toast: true,
+        position: 'bottom',
+        showConfirmButton: false,
+        timer: 3000,
+    });
+    window.addEventListener('swal:modal', event => {
+        Toast.fire({
+            icon: event.detail.type,
+            title: event.detail.title,
 
-            });
-        })
+        });
+    })
     </script>
 
     @stack('scripts')

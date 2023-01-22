@@ -1,11 +1,11 @@
 /* Google Fonts Import Link */
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 }
 
 .sidebar {
@@ -84,7 +84,7 @@
 }
 
 .sidebar.close .nav-links li .iocn-link {
-    display: block
+    display: block;
 }
 
 .sidebar .nav-links li i {
@@ -250,14 +250,13 @@
 
 .home-section {
     position: relative;
-    background: #E4E9F7;
     height: 100vh;
     left: 260px;
     width: calc(100% - 260px);
     transition: all 0.5s ease;
 }
 
-.sidebar.close~.home-section {
+.sidebar.close ~ .home-section {
     left: 78px;
     width: calc(100% - 78px);
 }
@@ -299,7 +298,7 @@
         width: calc(100% - 78px);
         z-index: 100;
     }
-    .sidebar.close~.home-section {
+    .sidebar.close ~ .home-section {
         width: 100%;
         left: 0;
     }
