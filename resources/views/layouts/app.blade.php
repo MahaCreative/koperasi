@@ -22,7 +22,7 @@
 </head>
 
 <body>
-    <div class="flex gap-x-3 ">
+    <div class="flex gap-x-3 font-sans">
         @livewire('snippets.sidebar')
 
         <section class="home-section bg-white ">

@@ -2,7 +2,7 @@
     @section('title')
         Login
     @endsection
-    <div class="shadow-md shadow-gray-500/50 border rounded-md w-96 p-2 bg-white">
+    <div class="py-2 5 px-3 rounded-md shadow-sm shadow-gray-400/50 w-[95%] md:w-[85%] lg:w-1/2 bg-white">
         <div class="flex flex-col justify-center items-center">
             <h3 class="font-semibold text-xl text-emerald-400">
                 <a href="{{ route('home') }}">{{ $profile->nama_koperasi }}</a>
@@ -16,7 +16,7 @@
                 <form wire:submit.prevent="loginHandler">
                     <div class="input-group mb-3">
                         <input wire:model='email' type="email"
-                            class="border text-sm lg:text-base border-gray-400/50 rounded-md px-2 py-1 flex items-center mb-2 w-full"
+                            class="rounded-lg border border-gray-300 py-2 px-3 transition duration-200 focus:border-blue-300 focus:ring focus:ring-blue-100 w-full"
                             placeholder="Email">
                         <div class="input-group-append">
                             <div class="input-group-text">
@@ -29,7 +29,7 @@
                     @enderror
                     <div class="input-group mb-3">
                         <input wire:model='password' type="password"
-                            class="border text-sm lg:text-base border-gray-400/50 rounded-md px-2 py-1 flex items-center mb-2 w-full"
+                            class="rounded-lg border border-gray-300 py-2 px-3 transition duration-200 focus:border-blue-300 focus:ring focus:ring-blue-100 w-full"
                             placeholder="Password">
                         <div class="input-group-append">
                             <div class="input-group-text">
@@ -39,7 +39,7 @@
                     </div>
                     <div class="input-group mb-3">
                         <input wire:model='password_confirmation' type="password"
-                            class="border text-sm lg:text-base border-gray-400/50 rounded-md px-2 py-1 flex items-center mb-2 w-full"
+                            class="rounded-lg border border-gray-300 py-2 px-3 transition duration-200 focus:border-blue-300 focus:ring focus:ring-blue-100 w-full"
                             placeholder="Password confirmation">
                         <div class="input-group-append">
                             <div class="input-group-text">
@@ -54,16 +54,16 @@
                         <!-- /.col -->
                         <div class="col-4">
                             <button type="submit"
-                                class="border text-sm lg:text-base border-gray-400/50 rounded-md px-2 py-1 flex items-center mb-2">Sign
+                                class="rounded-md py-2.5 px-3 shadow-sm shadow-gray-400/50 border font-sans">Sign
                                 In</button>
                         </div>
                         <!-- /.col -->
                     </div>
                 </form>
-                <p class="mb-0">
+                {{-- <p class="mb-0">
                     <a href="{{ route('register') }}" class="text-center hover:text-emerald-400">Register a new
                         membership</a>
-                </p>
+                </p> --}}
             </div>
             <!-- /.card-body -->
         </div>

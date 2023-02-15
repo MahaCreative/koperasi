@@ -47,7 +47,7 @@
             </form>
         @endif
     @endcomponent
-    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-2 mx-2 font-semibold">
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-2 mx-2 font-semibold ">
         <div
             class="border border-gray-300/50 rounded-md shadow-md shadow-gray-400/50 p-3 text-white bg-yellow-600 flex items-center">
             <div class="flex items-center gap-x-2">
