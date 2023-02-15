@@ -17,7 +17,7 @@ class CreateProfileUsersTable extends Migration
             $table->id();
             $table->foreignId('user_id')->nullable();
             $table->string('nik', 16)->unique();
-            $table->string('no_kk', 16)->unique()->nullable();
+            $table->string('no_kk', 16)->nullable();
             $table->string('nama_lengkap');
             $table->string('tempat_lahir');
             $table->date('ttl');
@@ -28,7 +28,7 @@ class CreateProfileUsersTable extends Migration
             $table->string('kabupaten')->nullable();
             $table->string('provinsi')->nullable();
             $table->foreignId('pekerjaan_id')->nullable();
-            $table->foreignId('petugas_id')->nullable();
+            $table->foreignId('petugas_id')->constrained()->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade')->nullable();
             $table->timestamps();
         });
     }

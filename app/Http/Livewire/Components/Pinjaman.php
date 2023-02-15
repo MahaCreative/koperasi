@@ -10,6 +10,7 @@ use Livewire\Component;
 class Pinjaman extends Component
 {
     public $pinjaman, $durasi;
+    public $detailDataPinjaman;
     public $selectPinjaman, $selectDurasi, $valselectPinjaman, $valselectDurasi;
     public $detailPinjaman, $detailAngsuran;
     public $pinjamanId, $durasiId = '';
@@ -18,6 +19,7 @@ class Pinjaman extends Component
     {
         $this->pinjaman = DataPinjaman::latest()->get();
         $this->durasi = DataAngsuran::latest()->get();
+        $this->detailDataPinjaman = DetailDataPinjaman::with('data_pinjaman','data_angsuran')->latest()->get();
         $minPinjaman = DataPinjaman::all()->min('pinjaman');
         $maxPinjaman = DataPinjaman::all()->max('pinjaman');
         $minDurasi = DataAngsuran::all()->min('durasi_angsuran');

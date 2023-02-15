@@ -60,7 +60,7 @@ class PinjamanUser extends Component
         $pekerjaan = Pekerjaan::latest()->get();
         $dataPinjaman = DataPinjaman::latest()->get();
         $dataAngsuran = DataAngsuran::latest()->get();
-        $detailPinjaman  = DetailDataPinjaman::latest()->get();
+        $detailPinjaman  = DetailDataPinjaman::with('data_pinjaman', 'data_angsuran')->latest()->get();
 
         if ($this->checkRole == 'super admin') {
             if ($this->search == '') {
@@ -109,7 +109,7 @@ class PinjamanUser extends Component
             }
         }
         $this->data = json_encode($pinjamanUsers);
-        return view('livewire.backend.pinjaman-user', compact('pekerjaan', 'dataPinjaman', 'dataAngsuran', 'pinjamanUsers'), ['data' => $this->data]);
+        return view('livewire.backend.pinjaman-user', compact('pekerjaan', 'dataPinjaman', 'dataAngsuran', 'pinjamanUsers', 'detailPinjaman'), ['data' => $this->data]);
     }
     public function print($value)
     {

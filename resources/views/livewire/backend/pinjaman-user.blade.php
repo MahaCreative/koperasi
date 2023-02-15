@@ -36,19 +36,20 @@
                             class="text-sm lg:text-base w-full border border-gray-400/50 rounded-md px-2 py-1 flex items-center mb-2"
                             name="" id="">
                             <option value="" selected>--Pilih Pinjaman--</option>
-                            @foreach ($dataPinjaman as $item)
-                            <option value="{{ $item->id }}">{{ $item->pinjaman }}</option>
+                            @foreach ($detailPinjaman as $item)
+                            <option value="{{ $item->data_pinjaman->id }}">{{ $item->data_pinjaman->pinjaman }}</option>
                             @endforeach
                         </select>
                     </div>
+
                     <div class="text-sm lg:text-base">
                         <label for="">Pilih Durasi Angsuran</label>
                         <select wire:change="pilih()" wire:model="pilihAngsuran"
                             class="text-sm lg:text-base w-full border border-gray-400/50 rounded-md px-2 py-1 flex items-center mb-2"
                             name="" id="">
                             <option value="" selected>--Pilih Durasi--</option>
-                            @foreach ($dataAngsuran as $item)
-                            <option value="{{ $item->id }}">{{ $item->durasi_angsuran }}</option>
+                            @foreach ($detailPinjaman as $item)
+                            <option value="{{ $item->data_angsuran->id }}">{{ $item->data_angsuran->durasi_angsuran }}</option>
                             @endforeach
                         </select>
                     </div>

@@ -15,8 +15,8 @@ class CreateDetailDataPinjamenTable extends Migration
     {
         Schema::create('detail_data_pinjamen', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('data_pinjaman_id');
-            $table->foreignId('data_angsuran_id');
+            $table->foreignId('data_pinjaman_id')->constrained()->references('id')->on('data_pinjamen')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('data_angsuran_id')->constrained()->references('id')->on('data_angsurans')->onDelete('cascade')->onUpdate('cascade');
             $table->integer('angsuran');
             $table->integer('simpanan');
             $table->timestamps();

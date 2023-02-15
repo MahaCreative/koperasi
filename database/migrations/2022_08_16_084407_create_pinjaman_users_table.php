@@ -17,7 +17,7 @@ class CreatePinjamanUsersTable extends Migration
             $table->id();
             $table->string('kode_pinjaman');
             $table->foreignId('profile_user_id');
-            $table->foreignId('detail_data_pinjaman_id');
+            $table->foreignId('detail_data_pinjaman_id')->constrained()->references('id')->on('detail_data_pinjamen')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('petugas_id');
             $table->boolean('status_pinjaman')->default(false);
             $table->boolean('status_lunas')->default(false);

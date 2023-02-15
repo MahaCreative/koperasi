@@ -21,8 +21,8 @@
                         <select wire:change="changePinjaman($event.target.value)" wire:model="selectPinjaman"
                             class="w-full border border-emerald-400" name="" id="">
                             <option value="0">Pilih Pinjaman</option>
-                            @forelse ($pinjaman as $item)
-                                <option value="{{ $item->id }}">{{ format_uang($item->pinjaman) }}</option>
+                            @forelse ($detailDataPinjaman as $item)
+                                <option value="{{ $item->data_pinjaman->id }}">{{ format_uang($item->data_pinjaman->pinjaman) }}</option>
                             @empty
                             @endforelse
                         </select>
@@ -42,8 +42,8 @@
                         <select wire:change="changeDurasi($event.target.value)" wire:model="selectDurasi"
                             class="w-full border border-emerald-400" name="" id="">
                             <option value="0">Pilih Pinjaman</option>
-                            @forelse ($durasi as $item)
-                                <option value="{{ $item->id }}">{{ $item->durasi_angsuran }}</option>
+                            @forelse ($detailDataPinjaman as $item)
+                                <option value="{{ $item->data_angsuran->id }}">{{ $item->data_angsuran->durasi_angsuran }}</option>
                             @empty
                             @endforelse
                         </select>
